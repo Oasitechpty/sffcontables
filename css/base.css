@@ -92,11 +92,11 @@ p {
 }
 
 .section {
-  padding: var(--space-8) 0;
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
 }
 
 .section--tight {
-  padding: var(--space-7) 0;
+  padding: clamp(2rem, 4vw, 3rem) 0;
 }
 
 .section--dark {
