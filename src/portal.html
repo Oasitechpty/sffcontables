@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E2A2B">
+<title>Portal SFFContables</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@600;700&display=swap">
+<style>
+.wm{font-family:'Cormorant SC',Georgia,serif;font-size:23px;font-weight:700;letter-spacing:.3px;line-height:1.05}
+/* Layout: acceso centrado → app con barra superior (escritorio) y barra inferior (móvil), vistas por ruta */
+:root{
+  --petrol:#143A3A; --petrol-deep:#0E2A2B; --petrol-soft:#1C4646; --line:#2F5B58;
+  --cream:#FBF8F2; --sand:#F3ECE0; --border:#E8DFD1; --mint:#E7EFEC;
+  --ink:#143A3A; --muted:#4F6664; --body:#3E5553; --sage:#A9BDB9; --sage-light:#D6E2DE;
+  --terra:#B4512C; --terra-soft:#E8A27C; --peach:#FBEBD9; --rust:#8A3B1E; --white:#ffffff;
+  --font:Arial, Helvetica, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55}
+a{color:var(--ink)}
+button{font-family:var(--font)}
+a:focus-visible,button:focus-visible,input:focus-visible,label:focus-within{outline:3px solid var(--terra-soft);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px}
+.blob{position:fixed;pointer-events:none;z-index:0}
+.pill{border-radius:999px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:12px 18px;font-weight:700;font-size:15px;text-decoration:none;cursor:pointer;border:1px solid transparent;min-height:44px}
+.btn-terra{background:var(--terra);color:var(--white)}
+.btn-terra:hover{background:#9C4524;color:var(--white)}
+.btn-dark{background:var(--petrol);color:var(--cream)}
+.btn-line{background:var(--white);border-color:var(--ink);color:var(--ink)}
+.btn-ghost{background:transparent;border-color:var(--sage);color:var(--cream)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:30px;padding:28px}
+.card-dark{background:var(--petrol);color:var(--cream);border-radius:30px;padding:28px}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--terra);font-weight:700;text-transform:uppercase}
+.tag{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:700;white-space:nowrap}
+.t-ok{background:var(--mint);color:var(--petrol-soft)}
+.t-warn{background:var(--terra);color:var(--white)}
+.t-wait{background:var(--sand);color:#5A4A2E}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:22px}
+.row{display:flex;flex-wrap:wrap;gap:22px;align-items:stretch}
+h1,h2,h3{text-wrap:balance}
+h1{margin:0;font-size:clamp(32px,4.4vw,54px);line-height:1.08;letter-spacing:-.5px}
+h2{margin:4px 0 0;font-size:24px;line-height:1.25}
+.num{font-variant-numeric:tabular-nums}
+/* barra superior */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(251,248,242,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-block:14px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:42px;height:42px;border-radius:14px;background:var(--petrol);color:var(--cream);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+.nav{display:flex;gap:4px;background:var(--white);border:1px solid var(--border);border-radius:999px;padding:5px}
+.nav a{padding:9px 16px;border-radius:999px;text-decoration:none;font-size:14px}
+.nav a[aria-current="page"]{background:var(--petrol);color:var(--cream);font-weight:700}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:50%;border:1px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.badge{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;border-radius:999px;background:var(--terra);color:var(--white);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--terra-soft);color:var(--petrol);display:flex;align-items:center;justify-content:center;font-weight:700;border:0;cursor:pointer}
+.panel{position:absolute;right:20px;top:66px;width:340px;max-width:calc(100vw - 32px);background:var(--white);border:1px solid var(--border);border-radius:24px;box-shadow:0 24px 50px -20px rgba(14,42,43,.45);padding:16px;z-index:30}
+.bottom-nav{display:none}
+main{position:relative;z-index:1;padding-block:28px 110px}
+@media (max-width:860px){
+  .nav{display:none}
+  .bottom-nav{display:flex;position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:25;background:var(--white);border:1px solid var(--border);border-radius:999px;padding:6px;justify-content:space-between;box-shadow:0 10px 30px -12px rgba(14,42,43,.35)}
+  .bottom-nav a{flex:1;text-align:center;padding:10px 0;border-radius:999px;text-decoration:none;font-size:12px}
+  .bottom-nav a[aria-current="page"]{background:var(--petrol);color:var(--cream);font-weight:700}
+  .hide-sm{display:none}
+}
+/* listas */
+.item{display:flex;align-items:center;gap:14px;border-radius:20px;padding:14px 16px;background:var(--cream)}
+.item.hot{background:var(--peach)}
+.date{width:54px;flex-shrink:0;text-align:center;line-height:1.1}
+.date b{display:block;font-size:22px}
+.date span{font-size:12px;color:var(--muted)}
+.hot .date b,.hot .date span{color:var(--rust)}
+.grow{flex:1 1 auto;min-width:0}
+.sub{font-size:13px;color:var(--body)}
+.check{display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:18px;padding:12px 16px;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--petrol);flex-shrink:0}
+.check.done span{text-decoration:line-through;color:var(--muted)}
+.folder{background:var(--cream);border-radius:24px;padding:18px;text-decoration:none;display:flex;flex-direction:column;gap:6px}
+.toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--petrol);color:var(--cream);border-radius:999px;padding:12px 20px;font-size:14px;z-index:40;max-width:calc(100vw - 32px);text-align:center}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border-radius:999px;padding:11px 18px;border:1px solid var(--border);background:var(--white);cursor:pointer;font-size:15px;min-height:44px}
+.chip[aria-pressed="true"]{background:var(--petrol);color:var(--cream);border-color:var(--petrol);font-weight:700}
+.msg{max-width:85%;border-radius:20px;padding:12px 16px;font-size:15px}
+.msg.them{background:var(--white);border:1px solid var(--border);align-self:flex-start}
+.msg.me{background:var(--petrol);color:var(--cream);align-self:flex-end}
+.msg small{display:block;font-size:12px;opacity:.75;margin-bottom:2px}
+/* acceso */
+.login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px;position:relative;z-index:1}
+.login-card{width:100%;max-width:440px;background:var(--white);border:1px solid var(--border);border-radius:36px;padding:36px 32px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px -30px rgba(14,42,43,.4)}
+.note{font-size:13px;color:var(--muted)}
+.err{background:var(--peach);color:var(--rust);border-radius:16px;padding:12px 14px;font-size:14px}
+/* móvil */
+html{-webkit-text-size-adjust:100%}
+body{margin:0;overflow-x:hidden}
+@media (max-width:860px){
+  .bottom-nav{padding:5px;gap:2px}
+  .bottom-nav a{padding:11px 0;min-height:44px;display:flex;align-items:center;justify-content:center}
+  .panel{position:fixed;left:12px;right:12px;width:auto;top:calc(72px + env(safe-area-inset-top,0px));max-height:calc(100vh - 180px);overflow-y:auto}
+}
+@media (max-width:600px){
+  .wrap{padding-inline:14px}
+  .top .wrap{padding-block:10px}
+  main{padding-block:20px 120px}
+  .card,.card-dark{padding:20px 18px;border-radius:24px}
+  .grid3,.row{gap:16px}
+  h1{font-size:clamp(28px,8.4vw,36px)}
+  h2{font-size:21px}
+  .item{padding:12px;gap:10px;border-radius:18px}
+  .date{width:44px}
+  .date b{font-size:19px}
+  .acts{padding-left:0!important}
+  .acts .btn{flex:1 1 100%}
+  .btn{padding:12px 16px}
+  .login{align-items:flex-start;padding:20px 14px calc(24px + env(safe-area-inset-bottom,0px))}
+  .login-card{padding:26px 20px;border-radius:28px;gap:14px}
+  .msg{max-width:92%}
+  .chips{flex-wrap:nowrap;overflow-x:auto;margin-inline:-14px;padding:2px 14px 6px;scrollbar-width:none}
+  .chips::-webkit-scrollbar{display:none}
+  .chip{flex-shrink:0;white-space:nowrap}
+  .blob{opacity:.6}
+  footer.wrap{padding-bottom:120px!important}
+}
+@media (prefers-reduced-motion:no-preference){.view{animation:fade .35s ease}@keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}}
+</style>
+
+<svg class="blob" aria-hidden="true" width="720" height="600" viewBox="0 0 720 600" style="right:-220px;top:-180px"><path d="M400 40 C540 10 700 90 715 240 C730 390 620 520 470 560 C330 600 190 585 110 475 C25 360 60 215 160 135 C235 75 290 55 400 40 Z" fill="#F3ECE0"></path></svg>
+<svg class="blob" aria-hidden="true" width="520" height="460" viewBox="0 0 520 460" style="left:-240px;bottom:-160px"><path d="M260 20 C380 10 500 100 505 230 C510 360 400 450 270 440 C140 430 20 360 15 230 C10 110 140 30 260 20 Z" fill="#E7EFEC"></path></svg>
+
+<div id="root"></div>
+<div id="toast" class="toast" role="status" hidden></div>
+
+<script>
+/* ====== CONFIGURACIÓN (editar al publicar) ====== */
+var CONFIG = {
+  // Acceso sin cuenta: cada cliente entra con su enlace privado
+  //   https://www.sffcontables.com/portal.html?c=ID_DE_SU_HOJA
+  // La hoja se comparte como "Cualquier persona con el enlace · Lector".
+  whatsapp: '50767387942',
+  correo: 'marjoris@sffcontables.com',
+  agenda: 'https://calendar.google.com',   // enlace de su agenda de citas de Google Calendar
+  foto: 'images/marjoris.jpg',
+  sitio: 'index.html',
+  calculadoras: 'calculadoras.html'
+};
+
+var MARK='<svg width="30" height="24" viewBox="0 0 64 48" aria-hidden="true"><rect x="6" y="28" width="6" height="16" rx="1.5" fill="#FBF8F2"></rect><rect x="16" y="20" width="6" height="24" rx="1.5" fill="#FBF8F2"></rect><rect x="26" y="26" width="6" height="18" rx="1.5" fill="#FBF8F2"></rect><rect x="36" y="16" width="6" height="28" rx="1.5" fill="#FBF8F2"></rect><rect x="46" y="12" width="6" height="32" rx="1.5" fill="#FBF8F2"></rect><polyline points="2,24 17,10 29,18 50,3" fill="none" stroke="#E8A27C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></polyline><polyline points="43,2 51,2.5 50.5,10" fill="none" stroke="#E8A27C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>';
+/* ====== DATOS DE DEMOSTRACIÓN ====== */
+var DEMO = {
+  nombre: 'Ana', empresa: 'Empresa de ejemplo, S.A.', iniciales: 'AC', mes: 'Septiembre 2026',
+  ingresos: 55000, gastos: 41200,
+  ventas: [['Abr',42000],['May',45000],['Jun',41000],['Jul',48000],['Ago',52000],['Sep',55000]],
+  carpeta: 'https://drive.google.com',
+  vencimientos: [
+    {fecha:'2026-10-15', obligacion:'ITBMS septiembre', detalle:'Formulario 430 · Borrador listo', estado:'por aprobar'},
+    {fecha:'', obligacion:'Planilla CSS de octubre', detalle:'SIPE · Fecha por confirmar', estado:'en proceso'},
+    {fecha:'2026-11-15', obligacion:'ITBMS octubre', detalle:'Formulario 430', estado:'pendiente'},
+    {fecha:'2026-12-15', obligacion:'Décimo tercer mes · tercera partida', detalle:'Pago a colaboradores', estado:'pendiente'},
+    {fecha:'2026-12-15', obligacion:'ITBMS noviembre', detalle:'Formulario 430', estado:'pendiente'},
+    {fecha:'', obligacion:'Declaración de renta 2025', detalle:'Presentada en e-Tax 2.0', estado:'listo'}
+  ],
+  pendientes: [
+    {doc:'Facturas de compra de septiembre', estado:'pendiente'},
+    {doc:'Estado de cuenta bancario de septiembre', estado:'recibido'},
+    {doc:'Planilla de horas extra de octubre', estado:'pendiente'}
+  ],
+  mensajes: [
+    {fecha:'Hace 2 horas', de:'Marjoris', texto:'Revisé su ITBMS de septiembre y todo cuadra. Le dejé el borrador en Documentos para que lo apruebe antes del 15.'},
+    {fecha:'Lunes', de:'Marjoris', texto:'Sus ventas crecieron 31% desde abril. Le sugiero revisar el flujo de caja de fin de año.'}
+  ]
+};
+
+/* ====== APRENDE ====== */
+var CATS=['Todos','Contabilidad','Finanzas','Impuestos','Planilla'];
+var COL={Contabilidad:['#E7EFEC','#1C4646'],Finanzas:['#F3ECE0','#5A4A2E'],Impuestos:['#FBEBD9','#8A3B1E'],Planilla:['#E3E9F2','#24395C']};
+var CAPS=[
+ {cat:'Contabilidad',min:2,t:'Separe las finanzas del negocio y las personales',r:'Mezclar cuentas es la causa más común de desorden contable en las pymes.',p:['Abra una cuenta bancaria solo para el negocio.','Lo que retire para usted, regístrelo como retiro o dividendo, no como gasto.','Pague gastos personales desde su cuenta personal.']},
+ {cat:'Contabilidad',min:3,t:'Sin factura no hay gasto deducible',r:'Cada costo o gasto que quiera deducir debe estar respaldado por un comprobante válido.',p:['Pida factura a nombre de su empresa, con su RUC.','Guarde las facturas ordenadas por mes.','Conserve libros y comprobantes por el plazo que exige la ley.']},
+ {cat:'Contabilidad',min:2,t:'Concilie el banco cada mes',r:'Comparar su registro con el estado de cuenta detecta errores a tiempo.',p:['Descargue el estado de cuenta al cierre del mes.','Marque cada movimiento contra su registro.','Investigue de inmediato cualquier diferencia.']},
+ {cat:'Finanzas',min:3,t:'Margen y flujo de caja no son lo mismo',r:'Una empresa puede ganar dinero en papel y quedarse sin efectivo.',p:['El margen mide cuánto gana por cada venta.','El flujo de caja mide cuándo entra y sale el dinero.','Cobrar tarde o acumular inventario consume su caja.']},
+ {cat:'Finanzas',min:2,t:'Tres indicadores para revisar cada mes',r:'Con tres indicadores ya sabe cómo va su negocio.',p:['Liquidez: activo corriente entre pasivo corriente.','Margen neto: utilidad entre ventas.','Días de cobro: cuánto tardan sus clientes en pagarle.']},
+ {cat:'Finanzas',min:2,t:'Construya un fondo de reserva',r:'Un colchón de efectivo le permite atravesar meses flojos sin endeudarse.',p:['Calcule sus gastos fijos mensuales.','Una referencia común es reservar tres meses.','Aparte un porcentaje de cada venta hasta completarlo.']},
+ {cat:'Impuestos',min:3,t:'ITBMS: lo esencial',r:'El impuesto al consumo de Panamá tiene una tasa general de 7%.',p:['El ITBMS que cobra no es ingreso suyo: lo administra para el Estado.','Se declara en el Formulario 430, normalmente cada mes.','Puede descontar el ITBMS de sus compras con factura válida.']},
+ {cat:'Impuestos',min:2,t:'Agende sus fechas fiscales del año',r:'La mayoría de las multas vienen de olvidar una fecha.',p:['Anote las fechas de ITBMS, renta y tasa única.','Prepare la información con dos semanas de anticipación.','Pida a su contador un calendario fiscal anual.']},
+ {cat:'Planilla',min:2,t:'Décimo tercer mes: cómo se paga',r:'Equivale a un mes adicional de salario al año, en tres partidas.',p:['Se paga el 15 de abril, el 15 de agosto y el 15 de diciembre.','Cada partida corresponde a los cuatro meses anteriores.','Provisione cada mes 1/12 del salario.']},
+ {cat:'Planilla',min:3,t:'Horas extra: cuánto se pagan',r:'El Código de Trabajo fija recargos distintos según la jornada.',p:['Hora extra diurna: recargo de 25%.','Hora extra nocturna: recargo de 50%.','Prolongación de la jornada nocturna o mixta: recargo de 75%.']}
+];
+var TIPS=[
+ ['Revise sus cuentas cada semana, no solo al cierre.','Diez minutos semanales evitan sorpresas a fin de mes.'],
+ ['Facture el mismo día que entrega.','Cada día que tarda en facturar es un día más que tarda en cobrar.'],
+ ['Ponga fecha de vencimiento a cada factura.','Un plazo claro facilita el seguimiento del cobro.'],
+ ['Separe un porcentaje de cada venta para impuestos.','Así el ITBMS y la renta no le toman por sorpresa.'],
+ ['Revise sus precios cada trimestre.','Si sus costos suben y sus precios no, su margen se reduce en silencio.'],
+ ['Pague a proveedores en la fecha acordada.','Pagar a tiempo cuida la relación; pagar antes de lo necesario reduce su caja.'],
+ ['Proyecte su flujo de caja a tres meses.','Ver venir un mes ajustado le da tiempo para negociar.'],
+ ['Documente por escrito los préstamos de socios.','Un contrato simple evita confusiones contables y tributarias.'],
+ ['Mantenga al día sus datos en la DGI y el municipio.','Un cambio de dirección o actividad sin reportar puede generar multas.'],
+ ['Pida estados financieros, no solo declaraciones.','Las declaraciones cumplen con el fisco; los estados financieros le ayudan a decidir.']
+];
+var HAB=['Tengo una cuenta bancaria solo para el negocio','Concilio el banco cada mes','Guardo la factura de cada gasto','Conozco mis fechas de impuestos del año','Reviso mi margen cada mes','Tengo un fondo para tres meses de gastos fijos'];
+
+/* ====== ESTADO ====== */
+var S={user:null,data:null,cat:'Todos',open:-1,tip:0,hab:[false,false,false,false,false,false],panel:false,local:{}};
+var HOY=new Date();HOY.setHours(0,0,0,0);
+function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem('sff-'+k)||'null');localStorage.setItem('sff-'+k,JSON.stringify(v));}catch(e){return null;}}
+S.local=store('local')||{};
+function saveLocal(){store('local',S.local);}
+
+var $=function(s){return document.querySelector(s);};
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(m){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m];});}
+function money(v){return 'B/. '+Number(v||0).toLocaleString('es-PA',{maximumFractionDigits:0});}
+function wa(t){return 'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(t);}
+var MES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+function parseD(s){if(!s)return null;var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s);return m?new Date(+m[1],+m[2]-1,+m[3]):null;}
+function dias(d){return Math.round((d-HOY)/86400000);}
+function toast(t){var el=$('#toast');el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(function(){el.hidden=true;},4200);}
+function gcal(v){var d=parseD(v.fecha);if(!d)return '';var a=v.fecha.replace(/-/g,'');var n=new Date(d);n.setDate(n.getDate()+1);
+ var b=n.getFullYear()+String(n.getMonth()+1).padStart(2,'0')+String(n.getDate()).padStart(2,'0');
+ return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(v.obligacion)+'&dates='+a+'/'+b+'&details='+encodeURIComponent(v.detalle+' · Recordatorio de SFFContables');}
+function keyOf(v){return 'v:'+v.obligacion+'|'+v.fecha;}
+function estadoDe(v){if(S.local[keyOf(v)]==='aprobado')return 'aprobado';return (v.estado||'').toLowerCase();}
+
+/* ====== DATOS DESDE GOOGLE SHEETS (enlace público, sin cuenta) ====== */
+function hojaId(t){t=String(t||'').trim();var m=/\/d\/([a-zA-Z0-9_-]{20,})/.exec(t);if(m)return m[1];m=/[?&]c=([a-zA-Z0-9_-]{20,})/.exec(t);if(m)return m[1];return /^[a-zA-Z0-9_-]{20,}$/.test(t)?t:'';}
+function gviz(id,hoja,rango){
+  var url='https://docs.google.com/spreadsheets/d/'+encodeURIComponent(id)+'/gviz/tq?tqx=out:json&headers=0&sheet='+encodeURIComponent(hoja)+'&range='+encodeURIComponent(rango);
+  return fetch(url).then(function(r){if(!r.ok)throw new Error('acceso');return r.text();}).then(function(t){
+    var a=t.indexOf('{'),b=t.lastIndexOf('}');if(a<0||b<a)throw new Error('acceso');
+    var j=JSON.parse(t.slice(a,b+1));if(j.status==='error')throw new Error('acceso');
+    return (j.table.rows||[]).map(function(r){return (r.c||[]).map(celda);}).filter(function(r){return r.some(function(x){return x!=='';});});
+  });
+}
+function celda(c){if(!c||c.v==null)return '';var v=c.v;
+  if(typeof v==='string'){var m=/^Date\((\d+),(\d+),(\d+)/.exec(v);if(m)return m[1]+'-'+String(+m[2]+1).padStart(2,'0')+'-'+String(+m[3]).padStart(2,'0');return v;}
+  return v;}
+function numero(v){if(typeof v==='number')return v;var n=parseFloat(String(v||'').replace(/[^0-9.\-]/g,''));return isNaN(n)?0:n;}
+function cargarHoja(id){
+  /* Resumen se lee fila por fila: mezcla textos y números en la misma columna */
+  var filas=[];for(var i=2;i<=10;i++)filas.push(gviz(id,'Resumen','A'+i+':B'+i));
+  return Promise.all(filas.concat([gviz(id,'Ventas','A2:B'),gviz(id,'Vencimientos','A2:D'),gviz(id,'Pendientes','A2:B'),gviz(id,'Mensajes','A2:C')])).then(function(v){
+    var res={};v.slice(0,9).forEach(function(x){if(x[0])res[String(x[0][0]).trim()]=x[0][1];});
+    v=v.slice(9);
+    if(!res.nombre_cliente&&!res.empresa)throw new Error('vacia');
+    var nombre=String(res.nombre_cliente||'');
+    return {nombre:nombre,empresa:String(res.empresa||''),iniciales:(nombre||'C').split(' ').map(function(p){return p[0]||'';}).join('').slice(0,2).toUpperCase(),
+      mes:String(res.mes||''),ingresos:numero(res.ingresos),gastos:numero(res.gastos),carpeta:res.carpeta_drive||'https://drive.google.com',
+      ventas:v[0].map(function(r){return [String(r[0]),numero(r[1])];}),
+      vencimientos:v[1].map(function(r){return {fecha:fechaISO(r[0]),obligacion:String(r[1]||''),detalle:String(r[2]||''),estado:String(r[3]||'pendiente')};}),
+      pendientes:v[2].map(function(r){return {doc:String(r[0]||''),estado:String(r[1]||'pendiente')};}),
+      mensajes:v[3].map(function(r){return {fecha:String(r[0]||''),de:String(r[1]||''),texto:String(r[2]||'')};})};
+  });
+}
+function fechaISO(t){t=String(t||'').trim();var m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(t);return m?m[3]+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0'):t;}
+function entrar(id){
+  S.cargando=true;S.err='';render();
+  cargarHoja(id).then(function(d){S.cargando=false;S.user={id:id,demo:false};S.data=d;store('hoja',id);
+    try{history.replaceState(null,'',location.pathname+(location.hash||'#inicio'));}catch(_){}render();})
+  .catch(function(e){S.cargando=false;store('hoja',null);
+    S.err=e.message==='vacia'?'Su portal todavía no tiene datos. Escríbanos y lo activamos.':'No pudimos abrir su portal con este enlace. Verifique el enlace o escríbanos por WhatsApp.';render();});
+}
+
+/* ====== RUTAS ====== */
+var ROUTES=[['inicio','Inicio'],['calendario','Calendario'],['documentos','Documentos'],['aprende','Aprende'],['asesora','Mi asesora']];
+function route(){var h=(location.hash||'').replace('#','');return ROUTES.some(function(r){return r[0]===h;})?h:'inicio';}
+function go(r){if(location.hash!=='#'+r){try{history.pushState(null,'','#'+r);}catch(e){location.hash=r;}}render();window.scrollTo(0,0);}
+
+/* ====== VISTAS ====== */
+function alertas(){var d=S.data,a=[];
+ d.vencimientos.forEach(function(v){var f=parseD(v.fecha),e=estadoDe(v);if(f&&e!=='listo'&&e!=='aprobado'){var n=dias(f);if(n>=0&&n<=10)a.push({t:v.obligacion,s:(n===0?'Vence hoy':'Vence en '+n+(n===1?' día':' días')),r:'calendario'});}
+  if(e==='por aprobar')a.push({t:v.obligacion+': borrador por aprobar',s:'Revíselo en Calendario',r:'calendario'});});
+ d.pendientes.forEach(function(p,i){if(!docDone(p,i))a.push({t:'Falta: '+p.doc,s:'Súbalo a su carpeta',r:'documentos'});});
+ return a;}
+function docDone(p,i){var k='d:'+p.doc;return S.local[k]!=null?S.local[k]:(p.estado||'').toLowerCase()==='recibido';}
+
+function header(r){var al=alertas();
+ return '<header class="top"><div class="wrap">'+
+  '<a class="logo" href="#inicio"><span class="logo-mark">'+MARK+'</span><span class="hide-sm" style="display:flex;flex-direction:column;line-height:1.2"><b class="wm">SFFContables</b><span style="font-size:13px;color:var(--muted)">Portal del cliente</span></span></a>'+
+  '<nav class="nav" aria-label="Secciones">'+ROUTES.map(function(x){return '<a href="#'+x[0]+'"'+(x[0]===r?' aria-current="page"':'')+'>'+x[1]+'</a>';}).join('')+'</nav>'+
+  '<div style="display:flex;align-items:center;gap:10px;position:relative">'+
+   '<button class="icon-btn" id="bell" aria-label="Notificaciones: '+al.length+'" aria-expanded="'+S.panel+'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#143A3A" stroke-width="1.8" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>'+(al.length?'<span class="badge">'+al.length+'</span>':'')+'</button>'+
+   '<button class="avatar" id="me" aria-label="Cerrar sesión de '+esc(S.data.nombre)+'" title="Cerrar sesión">'+esc(S.data.iniciales)+'</button>'+
+  '</div></div>'+
+  (S.panel?'<div class="panel" role="dialog" aria-label="Notificaciones"><div class="eyebrow" style="margin-bottom:10px">Notificaciones</div>'+(al.length?al.map(function(a){return '<a href="#'+a.r+'" class="item" style="text-decoration:none;margin-bottom:8px"><span class="grow"><b style="font-size:14px">'+esc(a.t)+'</b><span class="sub" style="display:block">'+esc(a.s)+'</span></span></a>';}).join(''):'<p class="note">Todo al día. No tiene avisos pendientes.</p>')+'</div>':'')+
+ '</header>';}
+
+function bottomNav(r){return '<nav class="bottom-nav" aria-label="Secciones">'+ROUTES.map(function(x){return '<a href="#'+x[0]+'"'+(x[0]===r?' aria-current="page"':'')+'>'+x[1].replace('Mi asesora','Asesora')+'</a>';}).join('')+'</nav>';}
+
+function chart(v){var w=480,h=200,max=Math.max.apply(null,v.map(function(x){return x[1];}).concat([1]));var top=Math.ceil(max/10000)*10000;
+ var xs=v.map(function(_,i){return 24+i*(w-56)/Math.max(1,v.length-1);}),ys=v.map(function(x){return 170-x[1]/top*140;});
+ var d='M'+xs.map(function(x,i){return x.toFixed(1)+' '+ys[i].toFixed(1);}).join(' L ');
+ var g=[0.5,1].map(function(f){var y=170-f*140;return '<line x1="24" y1="'+y+'" x2="'+(w-32)+'" y2="'+y+'" stroke="#235150" stroke-dasharray="3 5"></line><text x="'+(w-28)+'" y="'+(y+4)+'" fill="#A9BDB9" font-size="11" font-family="Arial">'+Math.round(top*f/1000)+'k</text>';}).join('');
+ var lab=v.map(function(x,i){return '<text x="'+xs[i]+'" y="194" fill="'+(i===v.length-1?'#FBF8F2':'#A9BDB9')+'" font-size="12" font-family="Arial" text-anchor="middle">'+esc(x[0])+'</text>';}).join('');
+ var aria='Ventas: '+v.map(function(x){return x[0]+' '+money(x[1]);}).join(', ');
+ return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" role="img" aria-label="'+esc(aria)+'"><line x1="24" y1="170" x2="'+(w-32)+'" y2="170" stroke="#2F5B58"></line>'+g+
+  '<path d="'+d+' L '+xs[xs.length-1].toFixed(1)+' 170 L 24 170 Z" fill="#1C4646"></path><path d="'+d+'" fill="none" stroke="#E8A27C" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"></path>'+
+  '<circle cx="'+xs[xs.length-1]+'" cy="'+ys[ys.length-1]+'" r="6" fill="#E8A27C" stroke="#143A3A" stroke-width="3"></circle>'+lab+'</svg>';}
+
+function vencItem(v,full){var f=parseD(v.fecha),e=estadoDe(v),n=f?dias(f):null,hot=f&&n!==null&&n>=0&&n<=10&&e!=='listo'&&e!=='aprobado';
+ var tag=e==='listo'?'<span class="tag t-ok">Al día</span>':e==='aprobado'?'<span class="tag t-ok">Aprobado</span>':e==='en proceso'?'<span class="tag t-wait">En proceso</span>':hot?'<span class="tag t-warn">'+(n===0?'Hoy':'En '+n+' días')+'</span>':e==='por aprobar'?'<span class="tag t-warn">Por aprobar</span>':'<span class="tag t-wait">Pendiente</span>';
+ var dt=f?'<div class="date"><b>'+f.getDate()+'</b><span>'+MES[f.getMonth()]+'</span></div>':'<div class="date" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1C4646" stroke-width="2"><circle cx="12" cy="12" r="9"></circle>'+(e==='listo'?'<path d="M8 12l3 3 5-6"></path>':'<path d="M12 7v5l3 2"></path>')+'</svg></div>';
+ var acts='';if(full){var g=gcal(v);if(e==='por aprobar')acts+='<button class="btn btn-terra" data-aprobar="'+esc(keyOf(v))+'" data-nombre="'+esc(v.obligacion)+'">Aprobar borrador</button>';if(g&&e!=='listo')acts+='<a class="btn btn-line" href="'+g+'" target="_blank" rel="noopener">Agregar a Google Calendar</a>';}
+ return '<div class="item'+(hot?' hot':'')+'" style="flex-wrap:wrap">'+dt+'<div class="grow"><b>'+esc(v.obligacion)+'</b><div class="sub">'+esc(v.detalle)+'</div></div>'+tag+(acts?'<div style="flex-basis:100%;display:flex;flex-wrap:wrap;gap:8px;padding-left:68px" class="acts">'+acts+'</div>':'')+'</div>';}
+
+function vInicio(){var d=S.data,ut=d.ingresos-d.gastos,mg=d.ingresos?ut/d.ingresos*100:0,v=d.ventas,cre=v.length>1&&v[0][1]?(v[v.length-1][1]/v[0][1]-1)*100:0;
+ var prox=d.vencimientos.filter(function(x){var e=estadoDe(x);return e!=='listo';}).slice(0,3);var m=d.mensajes[0];
+ return '<section class="row" style="align-items:center">'+
+  '<div style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:14px">'+
+   (S.user.demo?'<span class="tag t-ok" style="align-self:flex-start">Modo demostración · datos de ejemplo</span>':'')+
+   '<h1>Hola, '+esc(d.nombre)+'. <span style="color:var(--terra)">'+(ut>=0?'Su empresa va bien':'Revisemos juntos sus números')+'</span> este mes.</h1>'+
+   '<p style="margin:0;font-size:19px;color:var(--body);max-width:600px">Aquí ve en un solo lugar sus números, sus impuestos y lo que viene. Si algo no está claro, escríbanos.</p></div>'+
+  (m?'<div class="card-dark" style="flex:1 1 360px;min-width:0;display:flex;gap:14px;align-items:flex-start"><img src="'+esc(CONFIG.foto)+'" alt="" style="width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:center;border:3px solid var(--terra-soft);flex-shrink:0"><div style="display:flex;flex-direction:column;gap:10px;min-width:0"><div style="font-size:13px;color:var(--terra-soft);font-weight:700">Mensaje de '+esc(m.de)+' · '+esc(m.fecha)+'</div><p style="margin:0">“'+esc(m.texto)+'”</p><div style="display:flex;flex-wrap:wrap;gap:8px"><a class="btn btn-terra" href="#asesora">Responder</a><a class="btn btn-ghost" href="#calendario">Ver vencimientos</a></div></div></div>':'')+
+ '</section>'+
+ '<section class="grid3" style="margin-top:28px">'+
+  '<article class="card" style="display:flex;flex-direction:column;gap:14px"><div class="eyebrow">Números claros</div><h2>'+esc(d.mes)+'</h2><div><div class="sub">Utilidad del mes</div><div class="num" style="font-size:40px;font-weight:700;letter-spacing:-1px">'+money(ut)+'</div><span class="tag t-ok">Margen '+mg.toFixed(1)+'%</span></div>'+
+   '<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px"><div class="item" style="flex-direction:column;align-items:flex-start;gap:0"><span class="sub">Ingresos</span><b class="num" style="font-size:20px">'+money(d.ingresos)+'</b></div><div class="item" style="flex-direction:column;align-items:flex-start;gap:0"><span class="sub">Gastos</span><b class="num" style="font-size:20px">'+money(d.gastos)+'</b></div></div></article>'+
+  '<article class="card" style="display:flex;flex-direction:column;gap:12px"><div class="eyebrow">Impuestos en regla</div><h2>Próximos vencimientos</h2>'+prox.map(function(x){return vencItem(x,false);}).join('')+'<a href="#calendario" style="font-weight:700;font-size:14px">Ver calendario completo</a></article>'+
+  '<article class="card-dark" style="display:flex;flex-direction:column;gap:12px"><div class="eyebrow" style="color:var(--terra-soft)">Decisiones con datos</div><h2 style="color:#fff">Ventas de los últimos '+v.length+' meses</h2>'+chart(v)+
+   '<div style="background:var(--petrol-soft);border-radius:20px;padding:14px 16px;color:var(--sage-light);font-size:15px">Sus ventas '+(cre>=0?'crecieron':'bajaron')+' <b style="color:var(--terra-soft)">'+Math.abs(cre).toFixed(0)+'%</b> en el período.</div></article>'+
+ '</section>';}
+
+function vCalendario(){var d=S.data,g={};
+ d.vencimientos.forEach(function(v){var f=parseD(v.fecha),k=f?f.getFullYear()*100+f.getMonth():999999;(g[k]=g[k]||[]).push(v);});
+ var ks=Object.keys(g).sort(function(a,b){return a-b;});
+ return '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:22px"><div><div class="eyebrow">Impuestos en regla</div><h1 style="font-size:clamp(28px,3.6vw,42px)">Su calendario fiscal</h1></div><a class="btn btn-line" href="'+esc(CONFIG.agenda)+'" target="_blank" rel="noopener">Agendar revisión con su asesora</a></div>'+
+ ks.map(function(k){var f=k==999999?null:new Date(Math.floor(k/100),k%100,1);var t=f?['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'][f.getMonth()]+' '+f.getFullYear():'Sin fecha fija';
+  return '<section class="card" style="margin-bottom:18px;display:flex;flex-direction:column;gap:10px"><h2 style="font-size:20px">'+t+'</h2>'+g[k].map(function(v){return vencItem(v,true);}).join('')+'</section>';}).join('');}
+
+function vDocumentos(){var d=S.data,fold=[['Estados financieros','Balances y estados de resultado'],['Declaraciones DGI','ITBMS, renta y comprobantes'],['Planilla y CSS','Planillas SIPE y comprobantes'],['Legal y corporativo','Pacto social, actas y aviso de operación']];
+ var hechos=d.pendientes.filter(docDone).length;
+ return '<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:22px"><div><div class="eyebrow">Sus documentos</div><h1 style="font-size:clamp(28px,3.6vw,42px)">Todo ordenado en su carpeta</h1></div><a class="btn btn-dark" href="'+esc(d.carpeta)+'" target="_blank" rel="noopener">Abrir mi carpeta en Google Drive</a></div>'+
+ '<div class="row"><section class="card" style="flex:999 1 560px;min-width:0"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(200px,100%),1fr));gap:14px">'+
+  fold.map(function(f,i){return '<a class="folder" href="'+esc(d.carpeta)+'" target="_blank" rel="noopener" style="'+(i===1?'background:var(--peach)':'')+'"><svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="'+(i===1?'#B4512C':'#143A3A')+'" stroke-width="1.6"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><b>'+f[0]+'</b><span class="sub">'+f[1]+'</span></a>';}).join('')+
+ '</div></section>'+
+ '<section class="card" style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:10px"><div class="eyebrow">Necesitamos de usted</div><h2 style="font-size:20px">'+hechos+' de '+d.pendientes.length+' documentos listos</h2>'+
+  d.pendientes.map(function(p,i){var ok=docDone(p,i);return '<label class="check'+(ok?' done':'')+'"><input type="checkbox" data-doc="'+esc(p.doc)+'"'+(ok?' checked':'')+'><span>'+esc(p.doc)+'</span></label>';}).join('')+
+  '<a class="btn btn-terra" href="'+esc(d.carpeta)+'" target="_blank" rel="noopener">Subir documentos a mi carpeta</a><p class="note" style="margin:0">Marque cada documento cuando lo haya subido. Nuestro equipo lo confirmará.</p></section></div>';}
+
+function vAprende(){var list=CAPS.map(function(k,i){k.i=i;return k;}).filter(function(k){return S.cat==='Todos'||k.cat===S.cat;});var tip=TIPS[S.tip],sc=S.hab.filter(Boolean).length;
+ var dg=sc===6?'Excelente. Su negocio tiene bases sólidas.':sc>=4?'Va por buen camino. Con pocos ajustes tendrá todo bajo control.':sc>=2?'Hay oportunidades claras de mejora.':'Es momento de ordenar las bases. Le acompañamos paso a paso.';
+ return '<div class="eyebrow">Aprende en 3 minutos</div><h1 style="font-size:clamp(28px,3.6vw,42px);margin-bottom:8px">Finanzas y contabilidad, explicadas como en una conversación</h1><p style="margin:0 0 20px;color:var(--body)">Cápsulas cortas y consejos para manejar mejor el dinero de su negocio.</p>'+
+ '<div class="chips" role="group" aria-label="Filtrar por tema">'+CATS.map(function(c){return '<button class="chip" data-cat="'+c+'" aria-pressed="'+(c===S.cat)+'">'+c+'</button>';}).join('')+'</div>'+
+ '<section style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:18px;margin-top:22px;align-items:start">'+list.map(function(k){var c=COL[k.cat],o=S.open===k.i;
+  return '<article class="card" style="padding:24px;display:flex;flex-direction:column;gap:10px"><div style="display:flex;justify-content:space-between"><span class="tag" style="background:'+c[0]+';color:'+c[1]+'">'+k.cat+'</span><span class="sub">'+k.min+' min</span></div><h3 style="margin:0;font-size:19px;line-height:1.3">'+esc(k.t)+'</h3><p style="margin:0;color:var(--body);font-size:15px">'+esc(k.r)+'</p>'+
+  (o?'<div style="background:var(--cream);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">'+k.p.map(function(p,j){return '<div style="display:flex;gap:10px;font-size:15px"><span style="flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--petrol);color:var(--cream);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center">'+(j+1)+'</span><span>'+esc(p)+'</span></div>';}).join('')+'</div>':'')+
+  '<button class="btn btn-line" style="align-self:flex-start" data-cap="'+k.i+'" aria-expanded="'+o+'">'+(o?'Cerrar cápsula':'Leer cápsula')+'</button></article>';}).join('')+'</section>'+
+ '<section class="row" style="margin-top:28px"><div class="card-dark" style="flex:999 1 520px;min-width:0;display:flex;flex-direction:column;gap:14px"><div style="display:flex;justify-content:space-between;gap:10px"><span class="eyebrow" style="color:var(--terra-soft)">Tip de manejo financiero</span><span style="color:var(--sage);font-size:14px">Tip '+(S.tip+1)+' de '+TIPS.length+'</span></div><div style="font-size:26px;font-weight:700;line-height:1.3;color:#fff;min-height:68px">'+esc(tip[0])+'</div><p style="margin:0;color:var(--sage-light)">'+esc(tip[1])+'</p><div style="display:flex;gap:10px"><button class="icon-btn" style="background:transparent;border-color:var(--sage);color:var(--cream)" data-tip="-1" aria-label="Tip anterior">←</button><button class="icon-btn" style="background:var(--terra);border-color:var(--terra);color:#fff" data-tip="1" aria-label="Siguiente tip">→</button></div></div>'+
+ '<div class="card" style="flex:1 1 360px;min-width:0;display:flex;flex-direction:column;gap:10px"><div class="eyebrow">Chequeo rápido</div><h2 style="font-size:21px">¿Qué tan sana está la administración de su negocio?</h2>'+HAB.map(function(h,i){return '<label class="check"><input type="checkbox" data-hab="'+i+'"'+(S.hab[i]?' checked':'')+'><span>'+esc(h)+'</span></label>';}).join('')+
+  '<div style="background:var(--mint);border-radius:18px;padding:14px 16px"><b>'+sc+' de 6 hábitos</b><div class="sub">'+dg+'</div></div><a class="btn btn-terra" target="_blank" rel="noopener" href="'+wa('Hola SFFContables, hice el chequeo en mi portal: cumplo '+sc+' de 6 hábitos. Quisiera mejorar la administración de mi negocio.')+'">Revisar mi caso con SFFContables</a>'+
+  '<a href="'+esc(CONFIG.calculadoras)+'" style="font-weight:700;font-size:14px;text-align:center">Usar las calculadoras tributarias</a></div></section>';}
+
+function vAsesora(){var d=S.data;
+ return '<div class="row"><section class="card" style="flex:1 1 340px;min-width:0;background:var(--mint);border:0;display:flex;flex-direction:column;gap:16px"><div class="eyebrow">Su asesora</div><div style="display:flex;align-items:center;gap:14px"><img src="'+esc(CONFIG.foto)+'" alt="Marjoris Rodríguez Pineda" style="width:88px;height:88px;border-radius:28px;object-fit:cover;object-position:center"><div><b style="font-size:19px">Marjoris Rodríguez</b><div class="sub">CPA · SFFContables</div><div style="font-size:13px;margin-top:4px">Responde en menos de 24 h hábiles</div></div></div>'+
+  '<a class="btn btn-terra" target="_blank" rel="noopener" href="'+wa('Hola Marjoris, le escribo desde mi portal ('+d.empresa+').')+'">Escribir por WhatsApp</a><a class="btn btn-line" target="_blank" rel="noopener" href="'+esc(CONFIG.agenda)+'">Agendar reunión por Google Meet</a><div style="text-align:center;font-size:14px">'+esc(CONFIG.correo)+'</div></section>'+
+ '<section class="card" style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:14px"><div class="eyebrow">Mensajes</div><h2 style="font-size:20px">Conversación con su equipo</h2><div style="display:flex;flex-direction:column;gap:10px">'+
+  d.mensajes.slice().reverse().map(function(m){return '<div class="msg them"><small>'+esc(m.de)+' · '+esc(m.fecha)+'</small>'+esc(m.texto)+'</div>';}).join('')+
+  (S.local.enviados||[]).map(function(t){return '<div class="msg me"><small>Usted · enviado por WhatsApp</small>'+esc(t)+'</div>';}).join('')+'</div>'+
+  '<form id="msgForm" style="display:flex;gap:10px;flex-wrap:wrap"><label for="msgTxt" style="position:absolute;left:-9999px">Su mensaje</label><input id="msgTxt" required placeholder="Escriba su consulta…" style="flex:1 1 240px;min-width:0;border:1px solid var(--border);border-radius:999px;padding:13px 18px;font:inherit;background:var(--cream)"><button class="btn btn-dark" type="submit">Enviar por WhatsApp</button></form>'+
+  '<p class="note" style="margin:0">Su mensaje se abre en WhatsApp para que lo envíe a su asesora.</p></section></div>';}
+
+function vLogin(){
+ return '<div class="login"><div class="login-card"><div style="display:flex;align-items:center;gap:12px"><span class="logo-mark">'+MARK+'</span><div style="line-height:1.25"><b class="wm">SFFContables</b><div class="sub">Contadores y abogados · Panamá</div></div></div>'+
+  '<h1 style="font-size:clamp(26px,7vw,30px)">Bienvenido a su portal</h1><p style="margin:0;color:var(--body)">Sus números, sus impuestos y sus documentos, en un solo lugar y con su asesora a un mensaje de distancia.</p>'+
+  (S.err?'<div class="err" role="alert">'+esc(S.err)+'</div>':'')+
+  (S.cargando?'<div class="err" role="status" style="background:var(--mint);color:var(--petrol-soft)">Abriendo su portal…</div>':
+  '<div style="background:var(--cream);border-radius:20px;padding:14px 16px;font-size:15px;color:var(--body)"><b style="color:var(--ink)">No necesita cuenta ni contraseña.</b> Entre con el enlace privado que le enviamos por WhatsApp o correo. Si lo tiene a mano, péguelo aquí:</div>'+
+  '<form id="linkForm" style="display:flex;flex-direction:column;gap:10px"><label for="linkTxt" style="position:absolute;left:-9999px">Enlace de su portal</label><input id="linkTxt" required autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="url" placeholder="Pegue aquí su enlace" style="width:100%;border:1px solid var(--border);border-radius:999px;padding:13px 18px;font:inherit;font-size:16px;background:var(--white)"><button class="btn btn-dark" type="submit" style="width:100%">Entrar a mi portal</button></form>'+
+  '<a class="btn btn-terra" style="width:100%" target="_blank" rel="noopener" href="'+wa('Hola SFFContables, quisiera recibir el enlace de mi portal de clientes.')+'">Pedir mi enlace por WhatsApp</a>'+
+  '<button class="btn btn-line" id="demo" style="width:100%">Explorar en modo demostración</button>')+
+  '<p class="note" style="margin:0">Su enlace es personal: no lo comparta. Sus datos se tratan conforme a la Ley 81 de 2019 de protección de datos personales. <a href="'+esc(CONFIG.sitio)+'">Volver al sitio</a></p></div></div>';}
+
+function render(){var root=$('#root');
+ if(!S.user){root.innerHTML=vLogin();return;}
+ var r=route(),v={inicio:vInicio,calendario:vCalendario,documentos:vDocumentos,aprende:vAprende,asesora:vAsesora}[r]();
+ root.innerHTML=header(r)+'<main class="wrap"><div class="view">'+v+'</div></main><footer class="wrap" style="position:relative;z-index:1;padding-bottom:110px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted);border-top:1px solid var(--border);padding-top:20px"><span>SFFContables · Contadores y abogados · Panamá</span><span>Su negocio importa. Crecemos juntos. · Ley 81 de 2019 y debida diligencia</span></footer>'+bottomNav(r);
+}
+
+/* ====== EVENTOS ====== */
+document.addEventListener('click',function(e){var t=e.target;
+ if(t.closest('#demo')){S.user={id:'demo',demo:true};S.data=DEMO;S.err='';go('inicio');return;}
+ if(t.closest('#me')){S.user=null;S.data=null;S.panel=false;S.err='';store('hoja',null);try{history.replaceState(null,'',location.pathname);}catch(_){}render();return;}
+ if(t.closest('#bell')){S.panel=!S.panel;render();return;}
+ if(S.panel&&!t.closest('.panel')){S.panel=false;render();}
+ var ap=t.closest('[data-aprobar]');if(ap){S.local[ap.getAttribute('data-aprobar')]='aprobado';saveLocal();window.open(wa('Hola SFFContables, apruebo el borrador de '+ap.getAttribute('data-nombre')+' ('+S.data.empresa+').'),'_blank','noopener');render();toast('Se abrió WhatsApp con su aprobación. Envíe el mensaje para confirmarla.');return;}
+ var c=t.closest('[data-cat]');if(c){S.cat=c.getAttribute('data-cat');S.open=-1;render();return;}
+ var k=t.closest('[data-cap]');if(k){var i=+k.getAttribute('data-cap');S.open=S.open===i?-1:i;render();return;}
+ var tp=t.closest('[data-tip]');if(tp){S.tip=(S.tip+(+tp.getAttribute('data-tip'))+TIPS.length)%TIPS.length;render();return;}
+});
+document.addEventListener('change',function(e){var t=e.target;
+ if(t.hasAttribute('data-doc')){S.local['d:'+t.getAttribute('data-doc')]=t.checked;saveLocal();render();toast(t.checked?'Marcado como subido.':'Marcado como pendiente.');}
+ if(t.hasAttribute('data-hab')){S.hab[+t.getAttribute('data-hab')]=t.checked;render();}
+});
+document.addEventListener('submit',function(e){if(e.target.id==='linkForm'){e.preventDefault();var id=hojaId($('#linkTxt').value);if(!id){S.err='Ese enlace no parece válido. Copie el enlace completo que le enviamos.';render();return;}entrar(id);return;}
+ if(e.target.id==='msgForm'){e.preventDefault();var v=$('#msgTxt').value.trim();if(!v)return;
+ S.local.enviados=(S.local.enviados||[]).concat([v]);saveLocal();window.open(wa(v),'_blank','noopener');render();toast('Se abrió WhatsApp con su mensaje.');}});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&S.panel){S.panel=false;render();}});
+window.addEventListener('popstate',render);window.addEventListener('hashchange',render);
+var _c=hojaId(new URLSearchParams(location.search).get('c'))||store('hoja');if(_c)entrar(_c);else render();
+</script>
+
+</html>

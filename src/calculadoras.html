@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadoras tributarias Panamá · SFFContables</title>
+<meta name="description" content="Calcule ISR de persona natural y jurídica, ahorro en zona franca y planilla con horas extra en Panamá, con tasas 2026.">
+<link rel="canonical" href="https://www.sffcontables.com/calculadoras.html">
+<meta property="og:title" content="Calculadoras tributarias Panamá · SFFContables">
+<meta property="og:image" content="https://www.sffcontables.com/images/marjoris.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23143A3A'/%3E%3Cg transform='translate(4 10)'%3E%3Crect x='6' y='28' width='6' height='16' rx='1.5' fill='%23FBF8F2'/%3E%3Crect x='16' y='20' width='6' height='24' rx='1.5' fill='%23FBF8F2'/%3E%3Crect x='26' y='26' width='6' height='18' rx='1.5' fill='%23FBF8F2'/%3E%3Crect x='36' y='16' width='6' height='28' rx='1.5' fill='%23FBF8F2'/%3E%3Crect x='46' y='12' width='6' height='32' rx='1.5' fill='%23FBF8F2'/%3E%3Cpolyline points='2,24 17,10 29,18 50,3' fill='none' stroke='%23E8A27C' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/g%3E%3C/svg%3E">
+
+<style>
+/* Layout: banda petróleo con selector de país → pestañas → formulario | resultado en 3D */
+:root{
+  --petrol:#143A3A; --petrol-deep:#0E2A2B; --petrol-line:#2F5B58;
+  --cream:#FBF8F2; --sand:#F3ECE0; --sand-line:#E3D8C6;
+  --ink:#143A3A; --muted:#4F6664; --sage:#A9BDB9;
+  --terra:#B4512C; --terra-soft:#E8A27C; --white:#ffffff; --warn:#8A4B12; --warn-bg:#FBEBD9;
+  --font:Arial, Helvetica, sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--cream);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:20px}
+header.top{background:var(--petrol);color:var(--cream);padding-block:40px 0}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--terra-soft);font-weight:700}
+h1{margin:10px 0 8px;font-size:clamp(30px,4.6vw,48px);line-height:1.08;letter-spacing:-.5px;color:var(--white);text-wrap:balance}
+.lead{margin:0;color:#D6E2DE;max-width:640px}
+.countries{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.chip{appearance:none;border:1px solid var(--petrol-line);background:transparent;color:#D6E2DE;font:inherit;font-size:15px;padding:10px 18px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;min-height:44px}
+.chip b{font-size:12px;letter-spacing:1px;color:var(--sage)}
+.chip[aria-pressed="true"]{background:var(--terra);border-color:var(--terra);color:var(--white)}
+.chip[aria-pressed="true"] b{color:#FBE3D5}
+.tabs{display:flex;flex-wrap:wrap;gap:0;margin-top:32px;border-bottom:1px solid var(--petrol-line)}
+.tab{appearance:none;background:transparent;border:0;border-bottom:3px solid transparent;color:#D6E2DE;font:inherit;font-size:15px;font-weight:700;padding:14px 18px;cursor:pointer;min-height:48px}
+.tab[aria-selected="true"]{color:var(--white);border-bottom-color:var(--terra-soft)}
+.chip:focus-visible,.tab:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,button:focus-visible{outline:3px solid var(--terra-soft);outline-offset:2px}
+main{padding-block:40px 64px}
+.grid{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start}
+.form{flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:18px}
+.out{flex:1 1 420px;min-width:0}
+.form h2{margin:0;font-size:24px;text-wrap:balance}
+.ref{margin:0;font-size:14px;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:14px;font-weight:700}
+.field small{color:var(--muted);font-size:13px}
+input,select{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--sand-line);background:var(--white);color:var(--ink);width:100%;min-height:46px;font-variant-numeric:tabular-nums}
+.row2{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}
+.helper{appearance:none;border:0;background:none;color:var(--terra);font:inherit;font-size:13px;font-weight:700;padding:4px 0;cursor:pointer;text-align:left;text-decoration:underline;text-underline-offset:3px}
+.card{background:var(--petrol);color:var(--cream);padding:32px 28px;position:relative}
+.card .lbl{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--terra-soft);font-weight:700}
+.big{font-size:clamp(34px,5vw,46px);font-weight:700;color:var(--white);margin:6px 0 2px;font-variant-numeric:tabular-nums}
+.sub{color:var(--sage);font-size:14px;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0;margin-top:22px;border-top:1px solid var(--petrol-line)}
+.kpi{padding:14px 12px 12px 0}
+.kpi span{display:block;font-size:12px;color:var(--sage);letter-spacing:1px}
+.kpi strong{font-size:20px;color:var(--white);font-variant-numeric:tabular-nums}
+.tbl-wrap{overflow-x:auto;margin-top:22px}
+table{width:100%;border-collapse:collapse;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:9px 6px;text-align:left;border-bottom:1px solid var(--petrol-line)}
+th{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:700}
+td.n,th.n{text-align:right;white-space:nowrap}
+tr.tot td{font-weight:700;color:var(--white);border-bottom:0;border-top:2px solid var(--terra-soft)}
+.sec{margin-top:18px;font-size:12px;letter-spacing:2px;color:var(--terra-soft);font-weight:700;text-transform:uppercase}
+.alert{background:var(--warn-bg);color:var(--warn);padding:12px 14px;font-size:14px;border-left:4px solid var(--terra)}
+.cta{display:inline-flex;align-items:center;gap:10px;margin-top:24px;background:var(--terra);color:var(--white);text-decoration:none;font-weight:700;padding:15px 22px;min-height:48px}
+.cta:hover{background:#9C4524}
+.note{margin-top:40px;padding:22px 24px;background:var(--sand);font-size:14px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.note strong{color:var(--ink)}
+footer{background:var(--petrol-deep);color:var(--sage);font-size:13px;padding-block:22px}
+@media (max-width:640px){
+  .wrap{padding-inline:16px}
+  header.top{padding-block:28px 0}
+  .countries{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none}
+  .tabs{flex-wrap:nowrap;overflow-x:auto;margin-inline:-16px;padding-inline:16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .countries::-webkit-scrollbar,.tabs::-webkit-scrollbar{display:none}
+  .chip,.tab{flex-shrink:0;white-space:nowrap}
+  main{padding-block:28px 48px}
+  .grid{gap:24px}
+  .card{padding:24px 18px}
+  .cta{display:flex;justify-content:center;text-align:center}
+  .note{padding:18px}
+}
+</style>
+
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="eyebrow"><a href='/' style='color:inherit;text-decoration:none'>← SFFContables · Contadores y abogados</a></div>
+    <h1>Calculadoras tributarias y de nómina</h1>
+    <p class="lead">Estime impuestos, beneficios de zona franca y el costo de su planilla con las tasas vigentes en Panamá para 2026.</p>
+    <div class="countries" role="group" aria-label="País" id="countries"></div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+    <form class="form" id="form" novalidate></form>
+    <section class="out" aria-live="polite"><div class="card" id="card"></div></section>
+  </div>
+  <div class="note" id="note"></div>
+</main>
+
+<footer><div class="wrap">© 2026 SFFContables · Marjoris Rodríguez Pineda, CPA · +507 6738-7942 · marjoris@sffcontables.com</div></footer>
+
+<script>
+(function(){
+const INF = Infinity;
+const COUNTRIES = {
+  PA:{name:'Panamá',code:'PA',cur:'B/.',pnPeriod:'anual',
+      pnBr:[[11000,0],[50000,.15],[INF,.25]], pnRef:'Código Fiscal, art. 700. Tarifa anual sobre la renta neta gravable.',
+      pnHelper:{label:'Calcular desde salario mensual × 13 (incluye décimo tercer mes)',mult:13},
+      pjRef:'Código Fiscal, art. 699. Tarifa de 25% y Cálculo Alterno (CAIR) cuando la renta gravable supera B/.1,500,000.',
+      pjDefault:{gross:2400000,net:310000},
+      zf:{rate:.25,ex:100,label:'Zona franca (Ley 32 de 2011)',divGen:.10,divZf:.05,
+          ref:'Operaciones de exportación, reexportación y servicios al exterior exentas de ISR. Las ventas al territorio fiscal tributan régimen general. Dividendos: 10% régimen general, 5% en zonas francas.'},
+      payroll:{hSem:{diurna:48,nocturna:42,mixta:45,cuarenta:40},
+        emp:[['CSS (cuota obrera)',.0975],['Seguro educativo',.0125]],
+        pat:[['CSS (cuota patronal, Ley 462)',.1325],['Seguro educativo',.015],['Riesgos profesionales (promedio)',.0098]],
+        prov:[['Décimo tercer mes',1/12],['Vacaciones (30 días por 11 meses)',1/11],['Prima de antigüedad',.0192]],
+        extras:[['d','Horas extra diurnas',1.25,'Art. 33 C. de Trabajo · recargo 25%'],
+                ['n','Horas extra nocturnas',1.5,'Art. 33 · recargo 50%'],
+                ['p','Prolongación de jornada nocturna o mixta',1.75,'Art. 33 · recargo 75%'],
+                ['dd','Horas en día de descanso semanal',1.5,'Art. 40 · recargo 50%'],
+                ['f','Horas en feriado nacional',2.5,'Art. 49 · recargo 150%']],
+        maxMes:39, maxRef:'Máximo legal: 3 horas extra diarias y 9 semanales (art. 36).',
+        salary:1200},
+      sample:{pn:36000,pnDed:1500}},
+  CR:{name:'Costa Rica',code:'CR',cur:'₡',
+      pjDefault:{gross:95000000,net:14000000},
+      zf:{rate:.30,label:'Régimen de Zonas Francas (Ley 7210)',cr:true,
+          ref:'Industria procesadora: dentro de la GAM, exención total del ISR del año 1 al 8 y 50% del año 9 al 12. Fuera de la GAM, exención total del año 1 al 12 y 50% del año 13 al 18.'},
+      payroll:{hSem:{diurna:48,nocturna:36,mixta:42},
+        emp:[['CCSS (SEM e IVM) y Banco Popular',.1083]],
+        pat:[['Cargas sociales CCSS y Ley de Protección al Trabajador',.2683]],
+        prov:[['Aguinaldo',1/12],['Vacaciones (2 semanas por año)',.0417]],
+        extras:[['d','Horas extra',1.5,'Art. 139 C. de Trabajo · tiempo y medio'],
+                ['dd','Horas en día de descanso',2,'Art. 152 · pago doble'],
+                ['f','Horas en feriado',2,'Art. 149 · pago doble']],
+        maxMes:52, maxRef:'La jornada ordinaria más la extraordinaria no puede superar 12 horas diarias (art. 140).',
+        salary:1200000},
+      sample:{pn:1600000,pnDed:0}},
+  GT:{name:'Guatemala',code:'GT',cur:'Q',
+      pnBr:[[300000,.05],[INF,.07]], pnRef:'Decreto 10-2012, art. 73. Renta imponible = ingresos − Q48,000 − IGSS − otras deducciones.',
+      pnHelper:{label:'Calcular desde salario mensual × 12 (aguinaldo y Bono 14 están exentos)',mult:12},
+      pjDefault:{gross:4800000,net:600000},
+      zf:{rate:.25,ex:100,label:'Zonas francas (Decreto 65-89 y reformas)',
+          ref:'Exención del ISR sobre las actividades calificadas, sujeta a la resolución de calificación y su plazo de vigencia. Ajuste el porcentaje de exención según su resolución.'},
+      payroll:{hSem:{diurna:44,nocturna:36,mixta:42},
+        emp:[['IGSS (cuota laboral)',.0483]],
+        pat:[['IGSS (cuota patronal)',.1067],['IRTRA',.01],['INTECAP',.01]],
+        prov:[['Aguinaldo',1/12],['Bono 14',1/12],['Vacaciones (15 días hábiles)',.0417]],
+        extras:[['d','Horas extraordinarias',1.5,'Art. 121 C. de Trabajo · recargo 50%'],
+                ['f','Horas en feriado o día de descanso',2,'Art. 129 · pago doble']],
+        bonif:250, maxMes:52, maxRef:'La jornada total no puede exceder 12 horas diarias (art. 122).',
+        salary:5500},
+      sample:{pn:120000,pnDed:5000}},
+  MX:{name:'México',code:'MX',cur:'$',
+      pnRef:'LISR art. 96 y 152 · Anexo 8 RMF 2026. Tarifa anual aplicada en forma equivalente a la mensual × 12.',
+      pnHelper:{label:'Calcular desde salario mensual × 12',mult:12},
+      pjDefault:{gross:18000000,net:2500000},
+      zf:{rate:.30,ex:33.33,label:'Estímulo región fronteriza (norte o sur)',mx:true,
+          ref:'Crédito fiscal equivalente a una tercera parte del ISR sobre los ingresos obtenidos en la región, sujeto a inscripción en el padrón y a la vigencia del decreto.'},
+      payroll:{hSem:{diurna:48,nocturna:42,mixta:45},
+        emp:[['Cuotas obreras IMSS (estimación)',.0275]],
+        pat:[['Cuotas patronales IMSS, SAR e INFONAVIT (estimación)',.22]],
+        prov:[['Aguinaldo (15 días)',15/365],['Vacaciones y prima vacacional (12 días + 25%)',15/365]],
+        extras:[['d','Horas extra dobles (primeras 9 por semana)',2,'LFT art. 67 · pago doble'],
+                ['t','Horas extra triples (exceso de 9 por semana)',3,'LFT art. 68 · pago triple'],
+                ['dd','Horas en día de descanso',3,'LFT art. 73 · salario doble adicional'],
+                ['f','Horas en día de descanso obligatorio',3,'LFT art. 75 · salario doble adicional']],
+        maxMes:39, maxRef:'Máximo: 3 horas extra diarias, 3 veces por semana (LFT art. 66).',
+        salary:18000},
+      sample:{pn:300000,pnDed:15000}},
+  PE:{name:'Perú',code:'PE',cur:'S/',
+      pnBr:[[27500,.08],[110000,.14],[192500,.17],[247500,.20],[INF,.30]],
+      pnRef:'TUO LIR art. 53. UIT 2026: S/ 5,500. Deducción de 7 UIT (S/ 38,500) y hasta 3 UIT (S/ 16,500) adicionales.',
+      pnHelper:{label:'Calcular desde sueldo mensual × 14 (incluye gratificaciones)',mult:14},
+      pjDefault:{gross:3500000,net:420000},
+      zf:{rate:.295,ex:100,label:'ZED y ZOFRATACNA',
+          ref:'Los usuarios de las Zonas Especiales de Desarrollo y de ZOFRATACNA están exonerados del Impuesto a la Renta por las actividades autorizadas, dentro de los plazos de ley.'},
+      payroll:{hSem:{diurna:48,nocturna:48,mixta:48},
+        emp:[['ONP (o AFP según afiliación)',.13]],
+        pat:[['EsSalud',.09]],
+        prov:[['Gratificaciones (julio y diciembre)',2/12],['Bonificación extraordinaria (9%)',2/12*.09],['CTS',(1+1/6)/12],['Vacaciones (30 días)',1/12]],
+        extras:[['a','Horas extra (primeras 2 del día)',1.25,'D.S. 007-2002-TR · sobretasa 25%'],
+                ['b','Horas extra (desde la tercera)',1.35,'D.S. 007-2002-TR · sobretasa 35%'],
+                ['f','Horas en feriado o descanso no compensado',2,'D. Leg. 713 · sobretasa 100%']],
+        maxMes:52, maxRef:'El trabajo en sobretiempo es voluntario y debe registrarse.',
+        salary:3500},
+      sample:{pn:60000,pnDed:4000}}
+};
+// México: tarifa mensual 2026 (Anexo 8 RMF 2026)
+const MX_TAB=[[0.01,0,.0192],[844.60,16.22,.064],[7168.52,420.95,.1088],[12598.03,1011.68,.16],[14644.65,1339.14,.1792],[17533.65,1856.84,.2136],[35362.84,5665.16,.2352],[55736.69,10457.09,.30],[106410.51,25659.23,.32],[141880.67,37009.69,.34],[425642,133488.54,.35]];
+const MX_SUB={amount:535.65,limit:11492.66};
+// Costa Rica 2026
+const CR_SAL=[[918000,0],[1347000,.10],[2364000,.15],[4727000,.20],[INF,.25]];
+const CR_LUC=[[6244000,0],[8329000,.10],[10414000,.15],[20872000,.20],[INF,.25]];
+const CR_PJ=[[5621000,.05],[8433000,.10],[11243000,.15],[INF,.20]];
+const CR_PJ_LIMIT=119174000;
+const CR_CRED={hijo:1710,conyuge:2590};
+
+const TABS=[['pn','ISR persona natural'],['pj','ISR persona jurídica'],['zf','Zona franca'],['nom','Nómina y horas extra']];
+let state={c:'PA',t:'pn'};
+try{const s=JSON.parse(localStorage.getItem('calc-state')||'null');if(s&&COUNTRIES[s.c])state=s;}catch(e){}
+state.c='PA';
+if(/^#(pn|pj|zf|nom)$/.test(location.hash))state.t=location.hash.slice(1);
+
+const $=s=>document.querySelector(s);
+const fmt=(v,c)=>{const C=COUNTRIES[c||state.c];return C.cur+' '+(isFinite(v)?v:0).toLocaleString('es-PA',{minimumFractionDigits:2,maximumFractionDigits:2});};
+const pct=v=>(v*100).toLocaleString('es-PA',{maximumFractionDigits:2})+'%';
+const num=id=>{const el=document.getElementById(id);if(!el)return 0;const v=parseFloat(String(el.value).replace(/,/g,''));return isFinite(v)?v:0;};
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+function progressive(base,br){let prev=0,tax=0,rows=[];for(const [up,r] of br){if(base<=prev)break;const slice=Math.min(base,up)-prev;const t=slice*r;rows.push({from:prev,to:Math.min(base,up),r,t});tax+=t;prev=up;}return {tax,rows};}
+function mxMonthly(base){if(base<=0)return {tax:0,row:null};let row=MX_TAB[0];for(const r of MX_TAB){if(base>=r[0])row=r;}return {tax:row[1]+(base-row[0])*row[2],row};}
+
+function save(){try{localStorage.setItem('calc-state',JSON.stringify(state));}catch(e){}}
+
+function renderChrome(){
+  $('#countries').innerHTML='<span class="chip" aria-pressed="true" style="cursor:default"><b>PA</b>Panamá</span><span style="color:#A9BDB9;font-size:14px;align-self:center">También asesoramos en Costa Rica, Guatemala, México y Perú. Consulte su caso por WhatsApp.</span>';
+  $('#tabs').innerHTML=TABS.map(([id,l])=>`<button type="button" class="tab" role="tab" id="tab-${id}" data-t="${id}" aria-selected="${id===state.t}">${l}</button>`).join('');
+}
+
+function field(id,label,val,opt){opt=opt||{};return `<div class="field"><label for="${id}">${label}</label><input id="${id}" type="number" inputmode="decimal" min="0" step="${opt.step||'any'}" value="${val}">${opt.hint?`<small>${opt.hint}</small>`:''}</div>`;}
+function select(id,label,options,val){return `<div class="field"><label for="${id}">${label}</label><select id="${id}">${options.map(([v,l])=>`<option value="${v}"${v==val?' selected':''}>${l}</option>`).join('')}</select></div>`;}
+
+function renderForm(){
+  const C=COUNTRIES[state.c],f=$('#form');let h='';
+  if(state.t==='pn'){
+    h+=`<h2>ISR persona natural · ${C.name}</h2>`;
+    if(state.c==='CR'){
+      h+=select('crTipo','Tipo de ingreso',[['sal','Salario (mensual)'],['luc','Actividad lucrativa (anual)']],'sal');
+      h+=field('pnIng','Ingreso del período ('+C.cur+')',C.sample.pn);
+      h+=`<div class="row2">${field('crHij','Hijos',0,{step:1})}${select('crCon','Cónyuge a cargo',[['0','No'],['1','Sí']],'0')}</div>`;
+      h+=`<p class="ref">Tramos 2026 del Ministerio de Hacienda. Créditos familiares: ₡1,710 por hijo y ₡2,590 por cónyuge al mes.</p>`;
+    }else{
+      h+=field('pnIng','Ingreso anual ('+C.cur+')',C.sample.pn);
+      if(C.pnHelper)h+=`<div class="row2">${field('pnMes','Salario mensual (opcional)','',{})}<div class="field" style="justify-content:flex-end"><button type="button" class="helper" id="pnApply">${C.pnHelper.label}</button></div></div>`;
+      h+=field('pnDed',(state.c==='GT'?'IGSS y otras deducciones anuales':state.c==='PE'?'Gastos deducibles adicionales (tope 3 UIT)':state.c==='MX'?'Deducciones personales anuales':'Deducciones permitidas anuales')+' ('+C.cur+')',C.sample.pnDed,{hint:state.c==='PA'?'Intereses hipotecarios, intereses educativos, gastos médicos y primas de seguros, entre otras.':''});
+      h+=`<p class="ref">${C.pnRef}</p>`;
+    }
+  }else if(state.t==='pj'){
+    h+=`<h2>ISR persona jurídica · ${C.name}</h2>`;
+    h+=field('pjGross','Ingresos brutos anuales ('+C.cur+')',C.pjDefault.gross);
+    h+=field('pjNet','Renta neta gravable anual ('+C.cur+')',C.pjDefault.net,{hint:'Ingresos menos costos y gastos deducibles.'});
+    if(state.c==='PE')h+=select('peReg','Régimen',[['gen','Régimen General (29.5%)'],['mype','Régimen MYPE Tributario']],'mype');
+    const refs={PA:C.pjRef,CR:'Ley del Impuesto sobre la Renta, art. 15. Tarifa progresiva 2026 para ingresos brutos hasta ₡119,174,000; por encima, 30%.',GT:'Decreto 10-2012. Régimen sobre utilidades (25%) frente al Régimen Opcional Simplificado sobre ingresos (5% hasta Q30,000 mensuales y 7% sobre el exceso).',MX:'LISR art. 9. Tasa de 30% sobre el resultado fiscal.',PE:'Régimen General 29.5%. MYPE Tributario: 10% hasta 15 UIT de renta neta y 29.5% sobre el exceso, con ingresos de hasta 1,700 UIT.'};
+    h+=`<p class="ref">${refs[state.c]}</p>`;
+  }else if(state.t==='zf'){
+    const Z=C.zf;
+    h+=`<h2>${Z.label}</h2>`;
+    h+=field('zfNet','Utilidad neta anual ('+C.cur+')',C.pjDefault.net);
+    h+=field('zfExp',Z.mx?'% de ingresos obtenidos en la región':'% de la utilidad proveniente de actividades exentas (exportación, reexportación, servicios al exterior)',Z.mx?100:85);
+    if(Z.cr){h+=`<div class="row2">${select('crLoc','Ubicación',[['gam','Dentro de la GAM'],['fuera','Fuera de la GAM']],'gam')}${field('crYear','Año de operación',3,{step:1})}</div>`;}
+    else h+=field('zfEx','% de exención aplicable',Z.ex,{hint:'Valor sugerido según el régimen. Ajústelo a su resolución.'});
+    if(Z.divGen!=null)h+=field('zfDiv','% de la utilidad que distribuirá como dividendos',100);
+    h+=`<p class="ref">${Z.ref}</p>`;
+  }else{
+    const P=C.payroll;
+    h+=`<h2>Nómina y horas extra · ${C.name}</h2>`;
+    h+=`<div class="row2">${field('nSal','Salario mensual ('+C.cur+')',P.salary)}${select('nJor','Jornada',Object.keys(P.hSem).map(k=>[k,({diurna:'Diurna',nocturna:'Nocturna',mixta:'Mixta',cuarenta:'Jornada de 40 horas'})[k]+' ('+P.hSem[k]+' h/sem)']),'diurna')}</div>`;
+    h+=`<div class="sec" style="color:var(--terra)">Horas trabajadas en el mes</div>`;
+    h+=`<div class="row2">${P.extras.map(([id,l,m,r],i)=>field('x_'+id,l,i===0?10:0,{hint:r})).join('')}</div>`;
+    h+=`<p class="ref">${P.maxRef}</p>`;
+  }
+  f.innerHTML=h;
+  const ap=$('#pnApply');
+  if(ap)ap.addEventListener('click',()=>{const m=num('pnMes');if(m>0){$('#pnIng').value=(m*COUNTRIES[state.c].pnHelper.mult).toFixed(2);calc();}else{$('#pnMes').focus();}});
+}
+
+function rowsTable(head,rows,tot){return `<div class="tbl-wrap"><table><thead><tr>${head.map((x,i)=>`<th${i?' class="n"':''}>${x}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((x,i)=>`<td${i?' class="n"':''}>${x}</td>`).join('')}</tr>`).join('')}${tot?`<tr class="tot">${tot.map((x,i)=>`<td${i?' class="n"':''}>${x}</td>`).join('')}</tr>`:''}</tbody></table></div>`;}
+function kpis(list){return `<div class="kpis">${list.map(([l,v])=>`<div class="kpi"><span>${l}</span><strong>${v}</strong></div>`).join('')}</div>`;}
+function wa(text){return 'https://wa.me/50767387942?text='+encodeURIComponent(text);}
+
+function calc(){
+  const C=COUNTRIES[state.c];let out='',summary='',warn='';
+  if(state.t==='pn'){
+    let base,tax,rows=[],label='Impuesto anual estimado';
+    if(state.c==='CR'){
+      const tipo=$('#crTipo').value,ing=num('pnIng');
+      const r=progressive(ing,tipo==='sal'?CR_SAL:CR_LUC);
+      let cred=num('crHij')*CR_CRED.hijo+(+$('#crCon').value)*CR_CRED.conyuge; if(tipo==='luc')cred*=12;
+      base=ing;tax=Math.max(0,r.tax-cred);rows=r.rows.map(x=>[fmt(x.from)+' – '+fmt(x.to),pct(x.r),fmt(x.t)]);
+      if(cred>0)rows.push(['Créditos familiares','',' −'+fmt(Math.min(cred,r.tax))]);
+      label=tipo==='sal'?'Impuesto al salario mensual':'Impuesto anual estimado';
+      out+=`<div class="lbl">${label}</div><div class="big">${fmt(tax)}</div><p class="sub">Tasa efectiva ${pct(ing?tax/ing:0)}</p>`;
+      out+=kpis([['Ingreso',fmt(ing)],['Neto después de impuesto',fmt(ing-tax)]]);
+      out+=rowsTable(['Tramo','Tasa','Impuesto'],rows,['Total','',fmt(tax)]);
+      summary=`ISR persona natural ${C.name}: ingreso ${fmt(ing)}, impuesto estimado ${fmt(tax)}.`;
+    }else{
+      const ing=num('pnIng'),ded=num('pnDed');
+      if(state.c==='MX'){base=Math.max(0,ing-ded);const m=mxMonthly(base/12);tax=m.tax*12;rows=m.row?[[fmt(m.row[0]*12)+' en adelante',pct(m.row[2]),fmt(tax)]]:[];
+        out+=`<div class="lbl">ISR anual estimado</div><div class="big">${fmt(tax)}</div><p class="sub">Tasa efectiva ${pct(ing?tax/ing:0)}</p>`;
+        out+=kpis([['Base gravable',fmt(base)],['Cuota fija anual',fmt(m.row?m.row[1]*12:0)],['Ingreso neto',fmt(ing-tax)]]);
+        out+=rowsTable(['Tramo aplicable','% excedente','ISR'],rows);
+      }else{
+        let fixed=0,fixedLbl='';
+        if(state.c==='GT'){fixed=48000;fixedLbl='Deducción fija';}
+        if(state.c==='PE'){fixed=38500;fixedLbl='Deducción de 7 UIT';}
+        const dedUsed=state.c==='PE'?Math.min(ded,16500):ded;
+        base=Math.max(0,ing-fixed-dedUsed);const r=progressive(base,C.pnBr);tax=r.tax;
+        rows=r.rows.map(x=>[fmt(x.from)+' – '+fmt(x.to),pct(x.r),fmt(x.t)]);
+        out+=`<div class="lbl">Impuesto anual estimado</div><div class="big">${fmt(tax)}</div><p class="sub">Tasa efectiva ${pct(ing?tax/ing:0)} · Retención mensual aprox. ${fmt(tax/(C.pnHelper?C.pnHelper.mult:12))}</p>`;
+        const k=[['Ingreso anual',fmt(ing)]];if(fixed)k.push([fixedLbl,fmt(fixed)]);k.push(['Renta gravable',fmt(base)]);
+        out+=kpis(k);
+        out+=rowsTable(['Tramo','Tasa','Impuesto'],rows,['Total','',fmt(tax)]);
+        if(state.c==='PE'&&ded>16500)warn='Las deducciones adicionales se limitaron al tope de 3 UIT (S/ 16,500).';
+      }
+      summary=`ISR persona natural ${C.name}: ingreso anual ${fmt(ing)}, impuesto estimado ${fmt(tax)}.`;
+    }
+  }else if(state.t==='pj'){
+    const g=num('pjGross'),n=num('pjNet');let rows=[],tax=0,lead='',extra=[];
+    if(state.c==='PA'){
+      const trad=n*.25;let cair=0;
+      rows.push(['Método tradicional (25% de la renta neta)',fmt(trad)]);
+      if(g>1500000){cair=g*.0467*.25;rows.push(['CAIR (25% sobre 4.67% de ingresos gravables)',fmt(cair)]);}
+      tax=Math.max(trad,cair);lead=g>1500000?(cair>trad?'Aplica el CAIR por ser mayor':'Aplica el método tradicional'):'No aplica CAIR (ingresos hasta B/.1,500,000)';
+      if(g>1500000&&cair>trad)warn='El CAIR supera al método tradicional. Si la tasa efectiva excede 25%, puede solicitarse a la DGI la no aplicación del CAIR.';
+    }else if(state.c==='CR'){
+      if(g<=CR_PJ_LIMIT){const r=progressive(n,CR_PJ);tax=r.tax;rows=r.rows.map(x=>[fmt(x.from)+' – '+fmt(x.to)+' · '+pct(x.r),fmt(x.t)]);lead='Tarifa progresiva para pequeñas empresas';}
+      else{tax=n*.30;rows=[['Tarifa general 30%',fmt(tax)]];lead='Tarifa general (ingresos brutos sobre ₡119,174,000)';}
+    }else if(state.c==='GT'){
+      const util=n*.25;const m=g/12;const opc=12*(Math.min(m,30000)*.05+Math.max(0,m-30000)*.07);
+      rows=[['Régimen sobre utilidades (25%)',fmt(util)],['Régimen opcional simplificado sobre ingresos',fmt(opc)]];
+      tax=Math.min(util,opc);lead=util<=opc?'Menor carga: régimen sobre utilidades':'Menor carga: régimen opcional simplificado';
+    }else if(state.c==='MX'){tax=n*.30;rows=[['Tasa de 30% sobre resultado fiscal',fmt(tax)]];lead='Régimen general de personas morales';}
+    else{
+      const reg=$('#peReg').value;
+      if(reg==='mype'&&g<=9350000){const a=Math.min(n,82500)*.10,b=Math.max(0,n-82500)*.295;tax=a+b;rows=[['Hasta 15 UIT al 10%',fmt(a)],['Exceso al 29.5%',fmt(b)]];lead='Régimen MYPE Tributario';}
+      else{tax=n*.295;rows=[['Tasa de 29.5%',fmt(tax)]];lead='Régimen General';if(reg==='mype')warn='Los ingresos superan 1,700 UIT (S/ 9,350,000): corresponde el Régimen General.';}
+    }
+    out+=`<div class="lbl">ISR anual estimado</div><div class="big">${fmt(tax)}</div><p class="sub">${lead} · Tasa efectiva ${pct(n?tax/n:0)} sobre renta neta</p>`;
+    out+=kpis([['Ingresos brutos',fmt(g)],['Renta neta',fmt(n)],['Utilidad después de ISR',fmt(n-tax)]]);
+    out+=rowsTable(['Concepto','Monto'],rows);
+    summary=`ISR persona jurídica ${C.name}: ingresos ${fmt(g)}, renta neta ${fmt(n)}, impuesto estimado ${fmt(tax)}.`;
+  }else if(state.t==='zf'){
+    const Z=C.zf,n=num('zfNet'),sh=Math.min(100,num('zfExp'))/100;let ex;
+    if(Z.cr){const y=Math.max(1,num('crYear')),gam=$('#crLoc').value==='gam';ex=gam?(y<=8?1:y<=12?.5:0):(y<=12?1:y<=18?.5:0);}
+    else ex=Math.min(100,num('zfEx'))/100;
+    const gen=n*Z.rate;
+    let zf=Z.mx? gen - n*sh*Z.rate*ex : n*(1-sh)*Z.rate + n*sh*Z.rate*(1-ex);
+    zf=Math.max(0,zf);
+    const rows=[['ISR régimen general ('+pct(Z.rate)+')',fmt(gen)],['ISR con '+Z.label.toLowerCase(),fmt(zf)]];
+    let divTotGen=0,divTotZf=0;
+    if(Z.divGen!=null){const d=Math.min(100,num('zfDiv'))/100;divTotGen=(n-gen)*d*Z.divGen;divTotZf=(n-zf)*d*Z.divZf;rows.push(['Impuesto de dividendos, régimen general ('+pct(Z.divGen)+')',fmt(divTotGen)]);rows.push(['Impuesto de dividendos, zona franca ('+pct(Z.divZf)+')',fmt(divTotZf)]);}
+    const ahorro=(gen+divTotGen)-(zf+divTotZf);
+    out+=`<div class="lbl">Ahorro fiscal anual estimado</div><div class="big">${fmt(ahorro)}</div><p class="sub">Exención aplicada ${pct(ex)} sobre ${pct(sh)} de la utilidad</p>`;
+    out+=kpis([['Carga régimen general',fmt(gen+divTotGen)],['Carga en el régimen especial',fmt(zf+divTotZf)],['Tasa efectiva especial',pct(n?(zf+divTotZf)/n:0)]]);
+    out+=rowsTable(['Concepto','Monto'],rows);
+    if(Z.cr&&ex===0)warn='Según el año indicado, el período de exención ya terminó.';
+    summary=`Zona franca ${C.name}: utilidad ${fmt(n)}, ahorro estimado ${fmt(ahorro)}.`;
+  }else{
+    const P=C.payroll,sal=num('nSal'),jor=$('#nJor').value,h=P.hSem[jor];
+    const vh=sal*12/52/h;let hx=0,totH=0;const xr=[];
+    P.extras.forEach(([id,l,m])=>{const q=num('x_'+id);if(q>0){const v=q*vh*m;hx+=v;totH+=q;xr.push([l+' · '+q+' h × '+m.toFixed(2),fmt(v)]);}});
+    const bonif=P.bonif||0;const gross=sal+hx;
+    const empRows=P.emp.map(([l,r])=>[l+' ('+pct(r)+')',gross*r]);
+    const ssEmp=empRows.reduce((a,b)=>a+b[1],0);
+    let isr=0;
+    if(state.c==='PA'){isr=progressive(gross*13,C.pnBr).tax/13;}
+    else if(state.c==='CR'){isr=progressive(gross,CR_SAL).tax;}
+    else if(state.c==='GT'){isr=progressive(Math.max(0,gross*12-48000-ssEmp*12),C.pnBr).tax/12;}
+    else if(state.c==='MX'){const m=mxMonthly(gross).tax;isr=gross<=MX_SUB.limit?Math.max(0,m-MX_SUB.amount):m;}
+    else{isr=progressive(Math.max(0,gross*14-38500),C.pnBr).tax/12;}
+    const neto=gross+bonif-ssEmp-isr;
+    const patRows=P.pat.map(([l,r])=>[l+' ('+pct(r)+')',gross*r]);
+    const provRows=P.prov.map(([l,r])=>[l,sal*r]);
+    const pat=patRows.reduce((a,b)=>a+b[1],0),prov=provRows.reduce((a,b)=>a+b[1],0);
+    const costo=gross+bonif+pat+prov;
+    out+=`<div class="lbl">Salario neto del mes</div><div class="big">${fmt(neto)}</div><p class="sub">Valor hora ${fmt(vh)} · Costo total para el empleador ${fmt(costo)}</p>`;
+    out+=kpis([['Pago por horas extra',fmt(hx)],['Salario bruto',fmt(gross+bonif)],['Costo empleador',fmt(costo)]]);
+    let rows=[['Salario base',fmt(sal)]].concat(xr);if(bonif)rows.push(['Bonificación incentivo',fmt(bonif)]);
+    out+=`<div class="sec">Ingresos</div>`+rowsTable(['Concepto','Monto'],rows,['Total devengado',fmt(gross+bonif)]);
+    out+=`<div class="sec">Deducciones del trabajador</div>`+rowsTable(['Concepto','Monto'],empRows.map(r=>[r[0],fmt(r[1])]).concat([['Retención de impuesto sobre la renta',fmt(isr)]]),['Neto a pagar',fmt(neto)]);
+    out+=`<div class="sec">Aportes y provisiones del empleador</div>`+rowsTable(['Concepto','Monto'],patRows.map(r=>[r[0],fmt(r[1])]).concat(provRows.map(r=>[r[0],fmt(r[1])])),['Costo total mensual',fmt(costo)]);
+    if(jor==='cuarenta')warn='Jornada de 40 horas semanales: el valor hora se calcula dividiendo el salario entre 40 horas por semana, lo que da una hora más alta que en la jornada diurna de 48 horas.';
+    if(totH>P.maxMes)warn='Las horas extra registradas ('+totH+') superan el máximo mensual aproximado. '+P.maxRef;
+    summary=`Nómina ${C.name}: salario ${fmt(sal)}, ${totH} horas especiales, neto ${fmt(neto)}, costo empleador ${fmt(costo)}.`;
+  }
+  if(warn)out=`<div class="alert" role="status">${esc(warn)}</div><div style="height:16px"></div>`+out;
+  out+=`<a class="cta" href="${wa('Hola SFFContables, usé su calculadora. '+summary+' Quisiera validar mi caso.')}" target="_blank" rel="noopener"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"></path></svg>Validar mi caso por WhatsApp</a>`;
+  $('#card').innerHTML=out;
+}
+
+function renderNote(){
+  $('#note').innerHTML=`<strong>Resultados referenciales</strong><span>Estas calculadoras usan las tasas y tramos vigentes en Panamá para 2026 (Código Fiscal, Código de Trabajo y Ley 462 de la CSS). No sustituyen una asesoría: deducciones, créditos y regímenes especiales pueden cambiar el resultado. Valide su caso antes de declarar o pagar.</span>`;
+}
+
+function renderAll(){renderChrome();renderForm();calc();renderNote();save();}
+
+document.addEventListener('click',e=>{
+  const c=e.target.closest('[data-c]');if(c){state.c=c.dataset.c;renderAll();return;}
+  const t=e.target.closest('[data-t]');if(t){state.t=t.dataset.t;try{history.replaceState(null,'','#'+state.t);}catch(_){}renderAll();}
+});
+$('#tabs').addEventListener('keydown',e=>{if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;const i=TABS.findIndex(x=>x[0]===state.t);const j=(i+(e.key==='ArrowRight'?1:-1)+TABS.length)%TABS.length;state.t=TABS[j][0];renderAll();document.getElementById('tab-'+state.t).focus();});
+$('#form').addEventListener('input',calc);
+$('#form').addEventListener('change',calc);
+$('#form').addEventListener('submit',e=>e.preventDefault());
+
+renderAll();
+})();
+</script>
+<script async src="/.netlify/scripts/ar" data-netlify-deploy-id="6acc80071c6d6880e0b9c35b" data-netlify-site-id="3c1186f5-4711-4cb6-aace-6b981429334f" data-agent-runner-id="6acc7e80f7fe4f610bf373d3"></script>
+</body>
+</html>
