@@ -16,67 +16,33 @@
 | Verde petróleo + latón | Evolución del brand actual `#0E2A2B` | Formal, distintivo, no fintech |
 | Azul brillante / gradientes | SaaS startup | **Evitar** — poco serio para CPA |
 
-**Decisión recomendada: Alternativa 1 (Bosque institucional).** Conserva el verde ya asociado a SFF, cambia el terracota por **latón/oro apagado** (más informe financiero que startup) y fondos marfil.
+**Decisión aplicada (2026-10-21): Alternativa 2 — Marino moderno** (UI UX Pro Max: Authority navy + trust gold). Más formal y contemporánea para firmas contables.
 
 ---
 
-## Alternativa 1 — Bosque institucional *(recomendada)*
+## Paleta activa — Marino + ámbar
 
 | Token | Hex | Uso |
 |-------|-----|-----|
-| `--color-primary` | `#0E2A2B` | Header, hero, footer |
-| `--color-primary-deep` | `#0A2122` | Hover oscuro |
-| `--color-surface` | `#F7F4EE` | Fondo página |
-| `--color-surface-elevated` | `#FFFFFF` | Cards |
-| `--color-ink` | `#142423` | Texto principal |
-| `--color-ink-muted` | `#3A4F4E` | Texto secundario |
-| `--color-accent` | `#8B6914` | CTA / acento único |
-| `--color-accent-soft` | `#E8D5A3` | Badges suaves |
-| `--color-border` | `#D9D2C5` | Bordes |
-| `--color-success` | `#1B5E45` | Éxito |
-| `--color-warning` | `#8A5A00` | Aviso |
-| `--color-error` | `#9B2C2C` | Error |
-| `--color-focus` | `#8B6914` | Anillo de foco |
+| `--color-primary` | `#0F172A` | Hero, footer |
+| `--color-primary-soft` | `#1E293B` | Paneles |
+| `--color-surface` | `#F8FAFC` | Fondo |
+| `--color-surface-elevated` | `#FFFFFF` | Cards / header |
+| `--color-ink` | `#0F172A` | Texto |
+| `--color-ink-muted` | `#475569` | Secundario |
+| `--color-accent` | `#B45309` | CTA |
+| `--color-accent-soft` | `#FFEDD5` | Badges |
+| `--color-border` | `#E2E8F0` | Bordes |
+| `--color-focus` | `#1E3A8A` | Foco |
 
-### Contraste AA (Alternativa 1)
+### Tipografía activa (moderna, sin apilar letras)
 
-| Par | Ratio | Norma |
-|-----|-------|-------|
-| `#F7F4EE` / `#0E2A2B` | 13.81:1 | AA ✓ |
-| `#142423` / `#F7F4EE` | 14.64:1 | AA ✓ |
-| `#3A4F4E` / `#F7F4EE` | 7.94:1 | AA ✓ |
-| `#FFFFFF` / `#8B6914` | 5.09:1 | AA ✓ (CTA) |
-| `#0E2A2B` / `#E8D5A3` | 10.46:1 | AA ✓ |
+| Rol | Familia |
+|-----|---------|
+| Titulares | **Outfit** (letter-spacing negativo suave) |
+| Cuerpo | **Work Sans** |
 
----
-
-## Alternativa 2 — Marino contable
-
-| Token | Hex |
-|-------|-----|
-| Primary | `#0F172A` |
-| Accent | `#A16207` |
-| Background | `#F8FAFC` |
-| Ink | `#020617` |
-| Muted | `#475569` |
-
-Contraste: blanco/`#0F172A` 17.85:1; `#A16207`/`#F8FAFC` 4.71:1; blanco/`#A16207` 4.92:1 — todos AA.
-
-Usar si se prefiere look banca internacional; rompe más con el verde actual.
-
----
-
-## Tipografía
-
-| Rol | Familia | Justificación |
-|-----|---------|---------------|
-| Titulares | **Source Serif 4** | Editorial, serio, legible en web; menos “legal ancient” que EB Garamond |
-| Cuerpo / UI | **Source Sans 3** | Pareja coherente (Adobe Source), UI clara, `tabular-nums` |
-| Fallback | `Georgia, "Times New Roman", serif` / `system-ui, sans-serif` | |
-
-**Escala:** 12 / 14 / 16 / 18 / 22 / 28 / 36 / 48  
-**Cuerpo:** 17–18 px · line-height 1.6 · medida 60–75 ch  
-**Cifras:** `font-variant-numeric: tabular-nums`
+**Anti-hacinamiento:** sin `text-transform: uppercase` + tracking amplio; eyebrows en frase normal; measure ~34–42 ch; nav corta (5 ítems); copy breve.
 
 ---
 
