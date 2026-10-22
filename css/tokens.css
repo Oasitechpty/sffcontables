@@ -1,39 +1,41 @@
 :root {
-  /* UI UX Pro Max — Authority navy + trust gold (moderno) */
-  --color-primary: #0f172a;
-  --color-primary-deep: #020617;
-  --color-primary-soft: #1e293b;
-  --color-surface: #f8fafc;
+  /* Editorial firm — navy + amber, contraste AA */
+  --color-primary: #0b1f33;
+  --color-primary-deep: #061018;
+  --color-primary-soft: #152a40;
+  --color-surface: #eef2f6;
   --color-surface-elevated: #ffffff;
-  --color-ink: #0f172a;
-  --color-ink-muted: #475569;
-  --color-ink-on-primary: #f8fafc;
+  --color-ink: #0b1f33;
+  --color-ink-muted: #4a5c6a;
+  --color-ink-on-primary: #f1f5f9;
   --color-ink-on-primary-muted: #94a3b8;
   --color-accent: #b45309;
   --color-accent-hover: #92400e;
   --color-accent-soft: #ffedd5;
-  --color-border: #e2e8f0;
+  --color-border: #d0d7e0;
   --color-success: #047857;
+  --color-wa: #25d366;
+  --color-wa-dark: #1ebe57;
   --color-warning: #b45309;
   --color-error: #dc2626;
   --color-focus: #1e3a8a;
 
-  --font-heading: "Outfit", system-ui, sans-serif;
-  --font-sans: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: "Libre Baskerville", "Times New Roman", serif;
+  --font-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --font-serif: var(--font-heading);
 
   --text-xs: 0.8125rem;
   --text-sm: 0.9375rem;
   --text-base: 1.0625rem;
   --text-md: 1.125rem;
-  --text-lg: 1.35rem;
-  --text-xl: 1.75rem;
-  --text-2xl: 2.35rem;
-  --text-3xl: 3.25rem;
+  --text-lg: 1.4rem;
+  --text-xl: 1.85rem;
+  --text-2xl: 2.5rem;
+  --text-3xl: 3.4rem;
 
-  --leading-tight: 1.2;
-  --leading-body: 1.7;
-  --measure: 42ch;
+  --leading-tight: 1.15;
+  --leading-body: 1.65;
+  --measure: 40ch;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -41,15 +43,15 @@
   --space-4: 1rem;
   --space-5: 1.5rem;
   --space-6: 2rem;
-  --space-7: 3.5rem;
+  --space-7: 3.25rem;
   --space-8: 5rem;
   --space-9: 7rem;
 
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-btn: 2px;
-  --shadow-sm: 0 8px 24px rgba(15, 23, 42, 0.06);
-  --container: 1120px;
-  --header-h: 76px;
-  --transition: 200ms ease;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-btn: 0;
+  --shadow-sm: 0 10px 30px rgba(11, 31, 51, 0.08);
+  --container: 1140px;
+  --header-h: 72px;
+  --transition: 220ms ease;
 }
