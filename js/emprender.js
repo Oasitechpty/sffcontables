@@ -43,7 +43,7 @@
       crecimiento: "+4.1%",
       inversion: "alta",
       resumen:
-        "Costeo de menú, licencias municipales y planilla son críticos. Acompañamos trámites y orden financiero.",
+        "El costeo de menú, las licencias municipales y la planilla son críticos. Acompañamos los trámites y el orden financiero.",
     },
     {
       id: "turismo",
@@ -115,7 +115,7 @@
     cta.href =
       "https://wa.me/50767387942?text=" +
       encodeURIComponent(
-        `Hola SFFContables, me interesa orientación para abrir un negocio de: ${s.nombre}.`
+        `Hola Marjoris, me interesa orientación para abrir un negocio de: ${s.nombre}.`
       );
   }
 
