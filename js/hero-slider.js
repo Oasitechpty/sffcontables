@@ -4,7 +4,6 @@
 
   const slides = Array.from(hero.querySelectorAll(".hero__slide"));
   const dotsWrap = hero.querySelector(".hero__dots");
-  const caption = hero.querySelector(".hero__caption");
   if (slides.length < 2) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -21,10 +20,6 @@
       dotsWrap.querySelectorAll(".hero__dot").forEach((dot, n) => {
         dot.setAttribute("aria-selected", n === index ? "true" : "false");
       });
-    }
-    if (caption) {
-      const label = slides[index].getAttribute("data-label") || "";
-      caption.textContent = label;
     }
   }
 

@@ -450,31 +450,44 @@
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(105deg, rgba(6, 16, 24, 0.94) 0%, rgba(6, 16, 24, 0.88) 38%, rgba(6, 16, 24, 0.55) 62%, rgba(6, 16, 24, 0.28) 100%),
-    linear-gradient(0deg, rgba(6, 16, 24, 0.7) 0%, transparent 42%);
+    linear-gradient(180deg, rgba(6, 16, 24, 0.55) 0%, rgba(6, 16, 24, 0.72) 45%, rgba(6, 16, 24, 0.82) 100%),
+    radial-gradient(ellipse at center, rgba(6, 16, 24, 0.35) 0%, rgba(6, 16, 24, 0.55) 70%);
 }
 
 .hero__grid {
   position: relative;
   display: grid;
   gap: var(--space-6);
-  align-items: end;
+  align-items: center;
 }
 
-@media (min-width: 960px) {
-  .hero__grid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.7fr);
-    gap: var(--space-8);
-  }
+.hero__grid--center {
+  justify-items: center;
+  text-align: center;
 }
 
 .hero__copy {
-  max-width: 38rem;
-  padding: 1.6rem 1.5rem 1.75rem;
-  background: rgba(6, 16, 24, 0.88);
+  max-width: 40rem;
+  padding: 1.75rem 1.65rem 1.9rem;
+  background: rgba(6, 16, 24, 0.9);
   border-left: 3px solid var(--color-accent);
   backdrop-filter: blur(12px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.hero__copy--center {
+  border-left: 0;
+  border-top: 3px solid var(--color-accent);
+  margin-inline: auto;
+}
+
+.btn-row--center {
+  justify-content: center;
+}
+
+.hero__copy--center .hero__lead,
+.hero__copy--center .hero__offer {
+  margin-inline: auto;
 }
 
 .hero__eyebrow {
@@ -530,18 +543,11 @@
   text-transform: uppercase;
 }
 
-.hero__caption {
-  margin: 1.25rem 0 0;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(247, 244, 239, 0.65);
-}
-
 .hero__dots {
   position: absolute;
-  left: max(1.25rem, calc((100% - var(--container)) / 2));
+  left: 50%;
   bottom: 1.5rem;
+  transform: translateX(-50%);
   display: flex;
   gap: 0.45rem;
   z-index: 2;
@@ -596,6 +602,151 @@
     transition: none;
     transform: none;
   }
+}
+
+/* Secciones con foto de fondo + contraste alto */
+.section--media {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--color-primary-deep);
+  background-image: var(--section-bg);
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+}
+
+.section--media__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(105deg, rgba(6, 16, 24, 0.82) 0%, rgba(6, 16, 24, 0.72) 50%, rgba(6, 16, 24, 0.58) 100%);
+}
+
+.section--media__overlay--deep {
+  background:
+    linear-gradient(115deg, rgba(6, 16, 24, 0.86) 0%, rgba(6, 16, 24, 0.78) 45%, rgba(6, 16, 24, 0.65) 100%);
+}
+
+.section--media__content {
+  position: relative;
+  z-index: 1;
+}
+
+.section--media h2,
+.section--media h3 {
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+}
+
+.ceo-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--color-ink);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35);
+}
+
+.ceo-card img {
+  width: 112px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 0;
+  flex-shrink: 0;
+  border: 0;
+}
+
+.ceo-card__role {
+  margin: 0 0 0.35rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.ceo-card h3 {
+  margin: 0 0 0.5rem;
+  color: var(--color-ink);
+  font-weight: 400;
+  text-shadow: none;
+}
+
+.ceo-card p {
+  margin: 0 0 0.75rem;
+  color: var(--color-ink-muted);
+  max-width: 34ch;
+}
+
+.ceo-card__meta {
+  font-size: 0.875rem;
+  color: var(--color-ink) !important;
+  font-weight: 500;
+}
+
+.tool-grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: var(--space-6);
+}
+
+@media (min-width: 800px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  padding: 1.5rem 1.35rem;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--color-ink);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 100%;
+}
+
+.tool-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  color: var(--color-ink);
+}
+
+.tool-card__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+.tool-card h3 {
+  margin: 0;
+  color: var(--color-ink);
+  font-weight: 400;
+  font-size: 1.25rem;
+  text-shadow: none;
+}
+
+.tool-card p {
+  margin: 0;
+  color: var(--color-ink-muted);
+  flex: 1;
+}
+
+.tool-card__cta {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-primary);
 }
 
 /* Jurisdiction strip — marco legal panameño */

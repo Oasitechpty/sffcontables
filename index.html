@@ -63,7 +63,7 @@
         <a href="#nosotros">Firma</a>
         <a href="#servicios">Servicios</a>
         <a href="#casos">Casos</a>
-        <a href="calculadoras.html">Herramientas</a>
+        <a href="#herramientas">Herramientas</a>
         <a href="#contacto">Contacto</a>
       </nav>
     </div>
@@ -79,24 +79,17 @@
         <div class="hero__slide" style="background-image:url('images/hero/panama-cinta-sunset.jpg')" data-label="Ciudad de Panamá al atardecer"></div>
         <div class="hero__overlay"></div>
       </div>
-      <div class="container hero__grid">
-        <div class="hero__copy">
+      <div class="container hero__grid hero__grid--center">
+        <div class="hero__copy hero__copy--center">
           <p class="hero__eyebrow">Contadores públicos · Panamá</p>
           <h1>Claridad fiscal para quien construye en <em>Panamá</em>.</h1>
           <p class="hero__lead">Asesoría contable y tributaria bajo el Código Fiscal, la DGI y las NIIF. Firma local con disciplina internacional.</p>
           <p class="hero__offer"><span class="hero__offer-mark">Sin costo</span> Asesoría inicial con nuestra firma</p>
-          <div class="btn-row">
+          <div class="btn-row btn-row--center">
             <a class="btn btn--primary" href="https://wa.me/50767387942?text=Hola%20SFFContables%2C%20quiero%20una%20asesor%C3%ADa%20inicial%20sin%20costo." target="_blank" rel="noopener">Solicitar asesoría</a>
             <a class="btn btn--secondary" href="#servicios">Ver servicios</a>
           </div>
-          <p class="hero__caption" aria-live="polite">Esclusas de Miraflores · Canal de Panamá</p>
         </div>
-        <aside class="hero-panel" aria-label="CEO y CPA de SFF Contables">
-          <div class="hero-panel__label">Dirección de la firma</div>
-          <p style="margin:0 0 0.35rem"><strong>Marjoris Rodríguez Pineda</strong></p>
-          <p style="margin:0 0 1rem;color:var(--color-accent);font-weight:600">CPA · CEO SFF Contables</p>
-          <p style="margin:0">Experiencia en banca y multinacionales. Un solo interlocutor para su expediente ante DGI, municipio y bancos.</p>
-        </aside>
       </div>
       <div class="hero__dots" role="tablist" aria-label="Fotos de Panamá"></div>
     </section>
@@ -112,24 +105,25 @@
       </div>
     </div>
 
-    <section id="nosotros" class="section">
-      <div class="container">
-        <div class="grid-2" style="align-items:start;gap:var(--space-8)">
+    <section id="nosotros" class="section section--media" style="--section-bg:url('images/sections/office-desks-team.jpg')">
+      <div class="section--media__overlay" aria-hidden="true"></div>
+      <div class="container section--media__content">
+        <div class="grid-2" style="align-items:center;gap:var(--space-7)">
           <div>
-            <p class="eyebrow">La firma</p>
-            <h2>Una firma panameña que habla el idioma de bancos y auditores.</h2>
+            <p class="eyebrow" style="color:#f0b27a">La firma</p>
+            <h2 style="color:#fff">Una firma panameña que habla el idioma de bancos y auditores.</h2>
+            <p class="lede" style="color:rgba(255,255,255,.92)">SFFContables acompaña a empresas, emprendedores e inversionistas en la apertura y la operación cotidiana: impuestos, estados financieros y cumplimiento ante la DGI.</p>
           </div>
-          <div>
-            <p class="lede">SFFContables acompaña a empresas, emprendedores e inversionistas en la apertura y la operación cotidiana: impuestos, estados financieros y cumplimiento.</p>
-            <div class="profile" style="margin-top:var(--space-6)">
-              <img src="images/marjoris.jpg" width="120" height="120" alt="Marjoris Rodríguez Pineda, CPA · CEO SFF Contables">
-              <div>
-                <h3 style="margin-bottom:0.25rem;font-weight:400">Marjoris Rodríguez Pineda</h3>
-                <p style="margin-bottom:0.75rem;color:var(--color-ink-muted)">CPA · CEO SFF Contables · Desde 2012 en finanzas y tributación</p>
-                <a class="btn btn--text" href="https://wa.me/50767387942" target="_blank" rel="noopener">+507 6738-7942</a>
-              </div>
+          <aside class="ceo-card" aria-label="CEO de SFF Contables">
+            <img src="images/marjoris.jpg" width="112" height="112" alt="Marjoris Rodríguez Pineda, CPA · CEO SFF Contables">
+            <div>
+              <p class="ceo-card__role">CEO · Contadora Pública Autorizada</p>
+              <h3>Marjoris Rodríguez Pineda</h3>
+              <p>CPA · CEO SFF Contables. Experiencia en banca y multinacionales. Un solo interlocutor para su expediente ante DGI, municipio y bancos.</p>
+              <p class="ceo-card__meta">Desde 2012 en finanzas y tributación · República de Panamá</p>
+              <a class="btn btn--primary btn--on-light" href="https://wa.me/50767387942" target="_blank" rel="noopener">+507 6738-7942</a>
             </div>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -189,10 +183,34 @@
             <span class="service-row__link">Consultar</span>
           </a>
         </div>
-        <div class="btn-row" style="margin-top:var(--space-6)">
-          <a class="btn btn--ghost" href="calculadoras.html">Calculadoras fiscales</a>
-          <a class="btn btn--ghost" href="emprender.html">Abrir negocio</a>
-          <a class="btn btn--ghost" href="vivienda.html">Patrimonio familiar</a>
+      </div>
+    </section>
+
+    <section id="herramientas" class="section section--media" style="--section-bg:url('images/sections/panama-banking.jpg')">
+      <div class="section--media__overlay section--media__overlay--deep" aria-hidden="true"></div>
+      <div class="container section--media__content">
+        <p class="eyebrow" style="color:#f0b27a">Herramientas</p>
+        <h2 style="color:#fff">Recursos para decidir con números claros</h2>
+        <p class="lede" style="color:rgba(255,255,255,.92);max-width:42ch">Calculadoras y guías orientativas bajo la normativa panameña. Valide siempre su caso con la firma.</p>
+        <div class="tool-grid">
+          <a class="tool-card" href="calculadoras.html">
+            <span class="tool-card__label">01</span>
+            <h3>Calculadoras fiscales</h3>
+            <p>Estimaciones de renta, ITBMS y aportes referenciales para Panamá.</p>
+            <span class="tool-card__cta">Abrir</span>
+          </a>
+          <a class="tool-card" href="emprender.html">
+            <span class="tool-card__label">02</span>
+            <h3>Abrir un negocio</h3>
+            <p>Ruta de Panamá Emprende, avisos y primeros pasos ante la DGI.</p>
+            <span class="tool-card__cta">Abrir</span>
+          </a>
+          <a class="tool-card" href="vivienda.html">
+            <span class="tool-card__label">03</span>
+            <h3>Patrimonio familiar</h3>
+            <p>Orientación sobre inscripción de vivienda principal ante la DGI.</p>
+            <span class="tool-card__cta">Abrir</span>
+          </a>
         </div>
       </div>
     </section>
