@@ -6,7 +6,6 @@
   const dotsWrap = hero.querySelector(".hero__dots");
   if (slides.length < 2) return;
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let index = 0;
   let timer = null;
   const INTERVAL = 4000;
@@ -29,7 +28,6 @@
 
   function start() {
     stop();
-    if (reduceMotion) return;
     timer = window.setInterval(next, INTERVAL);
   }
 
