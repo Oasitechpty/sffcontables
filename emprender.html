@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emprender en Panamá · SFFContables</title>
+  <meta name="description" content="Explore sectores y pasos para abrir su negocio en Panamá. Orientación de SFFContables, CPA. Consulte a Marjoris por WhatsApp.">
+  <meta name="theme-color" content="#0E2A2B">
+  <link rel="canonical" href="https://www.sffcontables.com/emprender.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" width="40" height="32" viewBox="0 0 64 48" aria-hidden="true"><rect x="6" y="28" width="6" height="16" rx="1.5" fill="#F7F4EE"/><rect x="16" y="20" width="6" height="24" rx="1.5" fill="#F7F4EE"/><rect x="26" y="26" width="6" height="18" rx="1.5" fill="#F7F4EE"/><rect x="36" y="16" width="6" height="28" rx="1.5" fill="#F7F4EE"/><rect x="46" y="12" width="6" height="32" rx="1.5" fill="#F7F4EE"/></svg>
+        <span><span class="brand__name">SFFContables</span><span class="brand__tag">Emprender</span></span>
+      </a>
+      <button type="button" class="nav-toggle" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="siteNav">☰</button>
+      <nav id="siteNav" class="site-nav" aria-label="Principal">
+        <a href="index.html">Inicio</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="calculadoras.html">Calculadoras</a>
+        <a href="emprender.html" aria-current="page">Emprender</a>
+        <a href="vivienda.html">Vivienda</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--primary header-cta" href="https://wa.me/50767387942?text=Hola%20SFFContables%2C%20quiero%20abrir%20un%20negocio." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-block:3rem">
+      <div class="container">
+        <p class="eyebrow" style="color:var(--color-accent-soft)">Guía práctica</p>
+        <h1>¿Dónde y cómo empezar su negocio en Panamá?</h1>
+        <p>Elija un sector, revise una ficha clara (crecimiento público + nivel de inversión estimado) y escríbanos para armar el plan de apertura. No es una proyección de ganancias.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container tool-shell">
+        <div>
+          <h2 style="font-size:1.35rem">1. Filtre por inversión</h2>
+          <div class="btn-row" style="margin-bottom:1.5rem" role="group" aria-label="Filtro de inversión">
+            <button type="button" class="btn btn--ghost filter-btn is-active" data-filter="todas">Todas</button>
+            <button type="button" class="btn btn--ghost filter-btn" data-filter="baja">Inversión baja</button>
+            <button type="button" class="btn btn--ghost filter-btn" data-filter="media">Inversión media</button>
+            <button type="button" class="btn btn--ghost filter-btn" data-filter="alta">Inversión alta</button>
+          </div>
+          <h2 style="font-size:1.35rem">2. Elija un sector</h2>
+          <div id="sectorList" class="grid-2" style="margin-top:1rem"></div>
+        </div>
+        <div>
+          <div id="sectorDetail" class="result-box" tabindex="-1">
+            <p class="eyebrow">Ficha</p>
+            <h2 id="detailTitle" style="font-size:1.5rem">Seleccione un sector</h2>
+            <p id="detailBody">Use los filtros y toque una opción para ver el resumen.</p>
+            <dl id="detailMeta" class="nums" style="display:grid;gap:0.75rem;margin:1.5rem 0"></dl>
+            <p class="disclaimer">El crecimiento sectorial es referencia de contexto. El nivel de inversión es una valoración orientativa de SFFContables, no una garantía de resultados. Cada negocio requiere su propio estudio.</p>
+            <a id="detailCta" class="btn btn--primary" href="https://wa.me/50767387942?text=Hola%20SFFContables%2C%20quiero%20orientaci%C3%B3n%20para%20abrir%20un%20negocio." target="_blank" rel="noopener">Consultar con Marjoris</a>
+          </div>
+          <div class="card" style="margin-top:1.5rem">
+            <h3>Pasos típicos de apertura</h3>
+            <ol style="margin:0;padding-left:1.2rem;color:var(--color-ink-muted)">
+              <li>Definir actividad y estructura</li>
+              <li>Aviso de operación / registros</li>
+              <li>Inscripción tributaria (DGI)</li>
+              <li>Planilla e ISSI si hay personal</li>
+              <li>Calendario de obligaciones</li>
+            </ol>
+            <p style="margin-top:1rem"><a class="btn btn--text" href="index.html#planes">Ver Plan Emprendedor</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">← Volver al inicio</a> · Dudas sobre normas o trámites: <a href="https://wa.me/50767387942" target="_blank" rel="noopener">WhatsApp Marjoris</a></p>
+      <p class="disclaimer">Estimación orientativa. Consulte antes de invertir.</p>
+    </div>
+  </footer>
+  <a class="wa-fab" href="https://wa.me/50767387942" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+  <script src="js/main.js" defer></script>
+  <script src="js/emprender.js" defer></script>
+</body>
+</html>

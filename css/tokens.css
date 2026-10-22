@@ -1,0 +1,53 @@
+:root {
+  /* Alternativa 1 — Bosque institucional */
+  --color-primary: #0e2a2b;
+  --color-primary-deep: #0a2122;
+  --color-primary-soft: #1c4646;
+  --color-surface: #f7f4ee;
+  --color-surface-elevated: #ffffff;
+  --color-ink: #142423;
+  --color-ink-muted: #3a4f4e;
+  --color-ink-on-primary: #f7f4ee;
+  --color-ink-on-primary-muted: #c5d4d1;
+  --color-accent: #8b6914;
+  --color-accent-hover: #6f5410;
+  --color-accent-soft: #e8d5a3;
+  --color-border: #d9d2c5;
+  --color-success: #1b5e45;
+  --color-warning: #8a5a00;
+  --color-error: #9b2c2c;
+  --color-focus: #8b6914;
+
+  --font-serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-sans: "Source Sans 3", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1.0625rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.375rem;
+  --text-xl: 1.75rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: 3rem;
+
+  --leading-tight: 1.25;
+  --leading-body: 1.6;
+  --measure: 68ch;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --shadow-sm: 0 1px 2px rgba(14, 42, 43, 0.06);
+  --container: 1120px;
+  --header-h: 72px;
+  --transition: 180ms ease;
+}

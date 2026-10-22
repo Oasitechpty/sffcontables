@@ -1,0 +1,29 @@
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[redirects]]
+  from = "/calculadoras"
+  to = "/calculadoras.html"
+  status = 200
+
+[[redirects]]
+  from = "/emprender"
+  to = "/emprender.html"
+  status = 200
+
+[[redirects]]
+  from = "/vivienda"
+  to = "/vivienda.html"
+  status = 200
+
+[[redirects]]
+  from = "/portal"
+  to = "/portal.html"
+  status = 200

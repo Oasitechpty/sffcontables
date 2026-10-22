@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exoneración de vivienda · SFFContables</title>
+  <meta name="description" content="Orientación sobre beneficios tributarios en vivienda en Panamá. Simulador estimativo. Consulte a Marjoris, CPA.">
+  <meta name="theme-color" content="#0E2A2B">
+  <link rel="canonical" href="https://www.sffcontables.com/vivienda.html">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html">
+        <svg class="brand__mark" width="40" height="32" viewBox="0 0 64 48" aria-hidden="true"><rect x="6" y="28" width="6" height="16" rx="1.5" fill="#F7F4EE"/><rect x="16" y="20" width="6" height="24" rx="1.5" fill="#F7F4EE"/><rect x="26" y="26" width="6" height="18" rx="1.5" fill="#F7F4EE"/><rect x="36" y="16" width="6" height="28" rx="1.5" fill="#F7F4EE"/><rect x="46" y="12" width="6" height="32" rx="1.5" fill="#F7F4EE"/></svg>
+        <span><span class="brand__name">SFFContables</span><span class="brand__tag">Vivienda</span></span>
+      </a>
+      <button type="button" class="nav-toggle" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="siteNav">☰</button>
+      <nav id="siteNav" class="site-nav" aria-label="Principal">
+        <a href="index.html">Inicio</a>
+        <a href="calculadoras.html">Calculadoras</a>
+        <a href="emprender.html">Emprender</a>
+        <a href="vivienda.html" aria-current="page">Vivienda</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <a class="btn btn--primary header-cta" href="https://wa.me/50767387942?text=Hola%20Marjoris%2C%20quiero%20gestionar%20exoneraci%C3%B3n%20de%20vivienda." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" style="padding-block:3rem">
+      <div class="container">
+        <p class="eyebrow" style="color:var(--color-accent-soft)">Vivienda</p>
+        <h1>Su casa nueva puede pagar menos impuestos. Nosotros armamos el expediente.</h1>
+        <p>Revisamos qué beneficios le corresponden según la normativa vigente, preparamos el expediente y damos seguimiento. Esta página ofrece una orientación preliminar, no un dictamen.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container tool-shell">
+        <div class="card">
+          <h2 style="font-size:1.35rem">Simulador orientativo</h2>
+          <div class="field">
+            <label for="precio">Precio de compra (B/.)</label>
+            <input id="precio" class="nums" type="range" min="50000" max="350000" step="5000" value="150000">
+            <output id="precioOut" class="nums" for="precio" style="font-weight:700;font-size:1.4rem">B/. 150,000</output>
+          </div>
+          <div class="field">
+            <label for="region">Ubicación</label>
+            <select id="region">
+              <option value="1">Panamá y Panamá Oeste</option>
+              <option value="2">Colón y resto del país</option>
+            </select>
+          </div>
+          <p class="disclaimer">Los montos de impuesto de inmueble dependen del valor catastral, no solo del precio de compra. ITBI, intereses preferenciales y patrimonio familiar tributario tienen requisitos y plazos que deben validarse con la normativa oficial y su expediente.</p>
+        </div>
+        <div class="result-box">
+          <p class="eyebrow">Lectura preliminar</p>
+          <h3 id="viviendaTitulo">Resultado</h3>
+          <p id="viviendaBody"></p>
+          <ul id="viviendaLista" style="color:var(--color-ink-muted)"></ul>
+          <p class="disclaimer">Estimación orientativa. Para cifras exactas, leyes aplicables y el trámite, escriba a Marjoris.</p>
+          <a class="btn btn--primary" href="https://wa.me/50767387942?text=Hola%20Marjoris%2C%20quiero%20que%20gestionen%20mi%20exoneraci%C3%B3n%20de%20vivienda." target="_blank" rel="noopener">Quiero que gestionen mi exoneración</a>
+        </div>
+      </div>
+
+      <div class="container" style="margin-top:var(--space-7)">
+        <div class="grid-3">
+          <article class="card"><h3>ITBI / transferencia</h3><p>Pueden existir exenciones o tasas reducidas según precio y tipo de vivienda nueva. Lo confirmamos con la norma vigente.</p></article>
+          <article class="card"><h3>Impuesto de inmueble</h3><p>El patrimonio familiar tributario y el valor catastral definen gran parte del resultado anual.</p></article>
+          <article class="card"><h3>Intereses preferenciales</h3><p>Algunos créditos de vivienda nueva acceden a beneficios temporales. Depende de banco, precio y región.</p></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p><a href="index.html">← Inicio</a> · Consulte normas y tasas vigentes con <a href="https://wa.me/50767387942" target="_blank" rel="noopener">Marjoris</a></p>
+    </div>
+  </footer>
+  <a class="wa-fab" href="https://wa.me/50767387942" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
+  <script src="js/main.js" defer></script>
+  <script src="js/vivienda.js" defer></script>
+</body>
+</html>
