@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -351,7 +351,7 @@ function vAprende(){var list=CAPS.map(function(k,i){k.i=i;return k;}).filter(fun
   '<a href="'+esc(CONFIG.calculadoras)+'" style="font-weight:700;font-size:14px;text-align:center">Usar las calculadoras tributarias</a></div></section>';}
 
 function vAsesora(){var d=S.data;
- return '<div class="row"><section class="card" style="flex:1 1 340px;min-width:0;background:var(--mint);border:0;display:flex;flex-direction:column;gap:16px"><div class="eyebrow">Su asesora</div><div style="display:flex;align-items:center;gap:14px"><img src="'+esc(CONFIG.foto)+'" alt="Marjoris Rodríguez Pineda" style="width:88px;height:88px;border-radius:28px;object-fit:cover;object-position:center"><div><b style="font-size:19px">Marjoris Rodríguez</b><div class="sub">CPA · CEO, SFF Contables</div><div style="font-size:13px;margin-top:4px">Responde en menos de 24 h hábiles</div></div></div>'+
+ return '<div class="row"><section class="card" style="flex:1 1 340px;min-width:0;background:var(--mint);border:0;display:flex;flex-direction:column;gap:16px"><div class="eyebrow">Su asesora</div><div style="display:flex;align-items:center;gap:14px"><img src="'+esc(CONFIG.foto)+'" alt="Marjoris Rodríguez Pineda" style="width:88px;height:88px;border-radius:28px;object-fit:cover;object-position:center"><div><b style="font-size:19px">Marjoris Rodríguez</b><div class="sub">CPA · CEO SFF Contables</div><div style="font-size:13px;margin-top:4px">Responde en menos de 24 h hábiles</div></div></div>'+
   '<a class="btn btn-terra" target="_blank" rel="noopener" href="'+wa('Hola Marjoris, le escribo desde mi portal ('+d.empresa+').')+'">Escribir por WhatsApp</a><a class="btn btn-line" target="_blank" rel="noopener" href="'+esc(CONFIG.agenda)+'">Agendar reunión por Google Meet</a><div style="text-align:center;font-size:14px">'+esc(CONFIG.correo)+'</div></section>'+
  '<section class="card" style="flex:999 1 560px;min-width:0;display:flex;flex-direction:column;gap:14px"><div class="eyebrow">Mensajes</div><h2 style="font-size:20px">Conversación con su equipo</h2><div style="display:flex;flex-direction:column;gap:10px">'+
   d.mensajes.slice().reverse().map(function(m){return '<div class="msg them"><small>'+esc(m.de)+' · '+esc(m.fecha)+'</small>'+esc(m.texto)+'</div>';}).join('')+
@@ -400,3 +400,4 @@ var _c=hojaId(new URLSearchParams(location.search).get('c'))||store('hoja');if(_
 </script>
 
 </html>
+
