@@ -461,11 +461,6 @@
   align-items: center;
 }
 
-.hero__grid--center {
-  justify-items: center;
-  text-align: center;
-}
-
 .hero__copy {
   max-width: 40rem;
   padding: 1.75rem 1.65rem 1.9rem;
@@ -473,21 +468,8 @@
   border-left: 3px solid var(--color-accent);
   backdrop-filter: blur(12px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
-}
-
-.hero__copy--center {
-  border-left: 0;
-  border-top: 3px solid var(--color-accent);
-  margin-inline: auto;
-}
-
-.btn-row--center {
-  justify-content: center;
-}
-
-.hero__copy--center .hero__lead,
-.hero__copy--center .hero__offer {
-  margin-inline: auto;
+  text-align: left;
+  margin-inline: 0;
 }
 
 .hero__eyebrow {
@@ -545,9 +527,8 @@
 
 .hero__dots {
   position: absolute;
-  left: 50%;
+  left: max(1.25rem, calc((100% - var(--container)) / 2));
   bottom: 1.5rem;
-  transform: translateX(-50%);
   display: flex;
   gap: 0.45rem;
   z-index: 2;
