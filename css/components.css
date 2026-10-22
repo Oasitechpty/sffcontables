@@ -610,9 +610,9 @@
   isolation: isolate;
   overflow: hidden;
   background-color: var(--color-primary-deep);
-  background-image: var(--section-bg);
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   color: #fff;
 }
 
