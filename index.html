@@ -71,14 +71,23 @@
   </header>
 
   <main id="contenido">
-    <section class="hero">
+    <section class="hero" aria-roledescription="carrusel" aria-label="Presentación SFF Contables">
+      <div class="hero__media" aria-hidden="true">
+        <div class="hero__slide is-active" style="background-image:url('images/hero/panama-skyline.jpg')" data-label="Ciudad de Panamá"></div>
+        <div class="hero__slide" style="background-image:url('images/hero/finance-tower.jpg')" data-label="Banca y finanzas"></div>
+        <div class="hero__slide" style="background-image:url('images/hero/banking.jpg')" data-label="Confianza financiera"></div>
+        <div class="hero__slide" style="background-image:url('images/hero/panama-canal.jpg')" data-label="Panamá global"></div>
+        <div class="hero__slide" style="background-image:url('images/hero/trust-meeting.jpg')" data-label="Asesoría profesional"></div>
+        <div class="hero__overlay"></div>
+      </div>
       <div class="container hero__grid">
         <div>
-          <p class="eyebrow" style="color:#fdba74">Firma CPA en Panamá</p>
+          <p class="eyebrow" style="color:#fdba74">Firma panameña · CPA</p>
           <h1>Su negocio importa.<br><span>Crecemos juntos.</span></h1>
-          <p>Números claros, sin rodeos. Para pymes, emprendedores e inversionistas en Panamá.</p>
+          <p class="hero__lead">Estándar internacional con raíces en Panamá. Números claros para pymes, emprendedores e inversionistas.</p>
+          <p class="hero__offer">Asesoría inicial sin costo</p>
           <div class="btn-row">
-            <a class="btn btn--primary" href="https://wa.me/50767387942?text=Hola%20SFFContables%2C%20quisiera%20una%20consulta." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+            <a class="btn btn--primary" href="https://wa.me/50767387942?text=Hola%20SFFContables%2C%20quiero%20una%20asesor%C3%ADa%20inicial%20sin%20costo." target="_blank" rel="noopener">Solicitar asesoría</a>
             <a class="btn btn--secondary" href="#servicios">Ver servicios</a>
           </div>
         </div>
@@ -86,14 +95,15 @@
           <div class="hero-panel__label">Dirección</div>
           <p style="margin:0 0 0.35rem; color:#f8fafc; max-width:28ch; font-weight:600">Marjoris Rodríguez Pineda</p>
           <p style="margin:0 0 1rem; color:#fdba74; max-width:28ch">CPA · CEO SFF Contables</p>
-          <p style="margin:0 0 1rem; color:#94a3b8; max-width:28ch">Experiencia en banca y multinacionales, al servicio de su empresa.</p>
+          <p style="margin:0 0 1rem; color:#cbd5e1; max-width:28ch">Experiencia en banca y multinacionales, al servicio de su empresa en Panamá.</p>
           <div class="btn-row">
             <span class="badge badge--accent">CPA</span>
-            <span class="badge" style="background:transparent;color:#f8fafc;border-color:rgba(248,250,252,.2)">CEO</span>
-            <span class="badge" style="background:transparent;color:#f8fafc;border-color:rgba(248,250,252,.2)">NIIF</span>
+            <span class="badge" style="background:transparent;color:#f8fafc;border-color:rgba(248,250,252,.25)">CEO</span>
+            <span class="badge" style="background:transparent;color:#f8fafc;border-color:rgba(248,250,252,.25)">Panamá</span>
           </div>
         </aside>
       </div>
+      <div class="hero__dots" role="tablist" aria-label="Fotos del banner"></div>
     </section>
 
     <div class="trust-bar">
@@ -338,6 +348,7 @@
 
   <a class="wa-fab" href="https://wa.me/50767387942" target="_blank" rel="noopener" aria-label="WhatsApp">WhatsApp</a>
   <script src="js/main.js" defer></script>
+  <script src="js/hero-slider.js" defer></script>
 </body>
 </html>
 
